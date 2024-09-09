@@ -1,0 +1,103 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+
+}
+
+.background
+{
+    position:static;
+    width: 100vw;
+    height: 100vh;
+    background-image: url(/Images/IMG_8887.JPG);
+    background-position:center;
+    background-size: 100%;
+}
+
+.banner 
+{
+    
+ height: 11vh;
+ background-color: rgba(9, 89, 153, .5);
+ background-size: cover;
+ background-position: center;
+ 
+
+}
+
+.navbar
+{
+    
+ width: 85%;
+ margin: auto;
+ padding: 35px 0;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+}
+
+.logo img{
+   
+    margin-left: -2cm;
+    cursor: pointer;
+    
+}
+
+.logo a{
+    font-weight: bolder;
+    font-size:xx-large;
+    position: fixed ;
+    color: #ffffff;
+    cursor: pointer;
+    margin-top: 9px;
+    text-decoration: none;
+}
+
+.navbar ul li{
+    list-style: none;
+    display: inline-block;
+    margin: 0 30px;
+    position: relative;
+}
+
+.navbar ul li a{
+ text-decoration:none;
+ color:#ffffff;
+ text-transform: uppercase;
+ font-weight: bold;
+}
+
+.logo img{
+    float:left;
+    margin-left: -2cm;
+    cursor: pointer;
+    
+}
+
+.navbar ul li::after{
+    content: '';
+    height: 3px;
+    width: 0%;
+    background: #095999;
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    transition: 0.5s;
+}
+
+.navbar ul li:hover::after{
+    width: 100%;
+    color: blue;
+    
+}
+
+.main
+{
+    height: 50cm ;
+    position: center;
+ background: rgba(247, 247, 247, 0.356);
+ z-index: +2;
+
+ 
+}
