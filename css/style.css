@@ -42,17 +42,17 @@
     color: white;
     left: 100px;
     font-size: 25px;
-    margin: 0px;
+    margin-left: -20px;
     text-decoration: none;
 }
 
 /* Navbar links */
 .navbar ul {
-    margin: 20px 5px;
-    padding-top: 5px;
+    margin: 20px 30px;
     list-style: none;
     display: flex;
     justify-content: flex-end;
+   
    
 }
 
@@ -176,12 +176,28 @@ button:hover span{
     width: 100%;
 
 }
+@media(max-width: 320px){
+    .logoheader a{
+      
+       position: relative;
+       right: 13px;
+        
+      
+    }
+    .logo img{
+        
+        height: 40px;
+    }
 
+    .checkbtn{
+        right: 50px;
+    }
+}
 /* Media Query */
 @media (max-width: 500px) {
     .logoheader a{
       
-        padding-left: -100px;
+
         font-size: 20px;
       
     }
