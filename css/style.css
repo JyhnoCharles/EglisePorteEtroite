@@ -5,6 +5,10 @@
 
 }
 
+.body   {
+    background-color: black;
+}
+
 .banner 
 {
  height: 100vh;
@@ -197,7 +201,8 @@ button:hover span{
 @media (max-width: 500px) {
     .logoheader a{
       
-
+        position: relative;
+        right: 12px;
         font-size: 20px;
       
     }
@@ -205,6 +210,9 @@ button:hover span{
 
     .navbar ul li{
       font-size: 5px;
+    }
+    .logo img{
+        height: 40px;
     }
 
 }
