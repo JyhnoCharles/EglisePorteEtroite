@@ -5,9 +5,6 @@
 
 }
 
-.body   {
-    background-color: black;
-}
 
 .banner 
 {
@@ -64,6 +61,7 @@
 /* Add margin to the main content to avoid overlap with the fixed navbar */
 .content {
     margin-top: 80px; /* Adjust based on navbar height */
+    
 }
 
 h1{
@@ -217,7 +215,7 @@ button:hover span{
 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 937px) {
 
     .navbar{
         height: 63px;
