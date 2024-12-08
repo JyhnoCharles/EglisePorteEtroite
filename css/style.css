@@ -5,36 +5,99 @@
 
 }
 
+
 .banner 
 {
- width: 100;
  height: 100vh;
  background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)), url(/Images/IMG_8922.JPG);
  background-size: cover;
  background-position: center;
 
 }
+/* Navbar stays fixed at the top */
+.navbar {
+    position: fixed;
+    top: 1px;
+    left: 0;
+    width: 100%;
+    z-index: 999; /* Ensure it stays above other content */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+   
+}
 
-.navbar
-{
- width: 85%;
- margin: auto;
- padding: 35px 0;
- display: flex;
- align-items: center;
- justify-content: space-between;
+/* Logo alignment */
+.logo img {
+    z-index: 999;
+    height: 50px;
+    padding-left:  5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Title alignment */
+.logoheader {
+    z-index: 999;
+    color: white;
+    left: 100px;
+    font-size: 25px;
+    margin-left: -20px;
+    text-decoration: none;
+}
+
+/* Navbar links */
+.navbar ul {
+    margin: 20px 30px;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+   
+   
+}
+
+
+/* Add margin to the main content to avoid overlap with the fixed navbar */
+.content {
+    margin-top: 80px; /* Adjust based on navbar height */
+    
 }
 
 h1{
     position:fixed ;
     color: #ffffff;
     cursor: pointer;
+   
 }
+
+h1 a{
+    text-decoration: none;
+    color:#ffffff
+}
+
+.checkbtn {
+    display: block; /* Ensure it's always visible */
+    font-size: 30px;
+    color: white; 
+    position: absolute;
+    top: 25px;
+    right: 85px;
+    z-index: 999;
+    cursor: pointer;
+
+    display: none;
+}
+#check{
+    display: none;
+}
+
+
 
 .navbar ul li{
     list-style: none;
     display: inline-block;
-    margin: 0 30px;
+    margin: 0 20px;
     position: relative;
 }
 
@@ -43,12 +106,6 @@ h1{
  color:#ffffff;
  text-transform: uppercase;
  font-weight: bold;
-}
-
-.logo img{
-    margin-left: -2cm;
-    cursor: pointer;
-    
 }
 
 .navbar ul li::after{
@@ -121,4 +178,93 @@ button:hover span{
     width: 100%;
 
 }
+@media(max-width: 320px){
+    .logoheader a{
+      
+       position: relative;
+       right: 13px;
+        
+      
+    }
+    .logo img{
+        
+        height: 40px;
+    }
 
+    .checkbtn{
+        right: 50px;
+    }
+}
+/* Media Query */
+@media (max-width: 500px) {
+    .logoheader a{
+      
+        position: relative;
+        right: 12px;
+        font-size: 20px;
+      
+    }
+
+
+    .navbar ul li{
+      font-size: 5px;
+    }
+    .logo img{
+        height: 40px;
+    }
+
+}
+
+@media (max-width: 937px) {
+
+    .navbar{
+        height: 63px;
+    }
+
+    .logoheader a{
+      
+        margin-top: 30px ;
+      
+    }
+
+    .checkbtn {
+        display: block; /* Ensure it's always visible */
+        
+    }
+    .navbar ul{
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #2c3e50;
+        top: -1000px;
+        left: 0;
+        text-align: center;
+        display: block;
+        transition: all .5s;
+        padding: 0%;
+        margin: 0px;
+    }
+    .navbar ul li {
+        top: 50px;
+        padding: 35px 20px;
+        text-align: center;
+        display: block;
+    }
+    .navbar ul li a{
+        font-size: 30px;
+
+    }
+    #check:checked ~ ul {
+        top: 0;
+    }
+    
+    .navbar ul li:hover::after{
+        width: 0%;
+        
+    }
+    .logo {
+        z-index: 999;
+    }
+   
+
+}
