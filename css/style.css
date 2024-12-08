@@ -1,3 +1,5 @@
+/* HEADER PAGE  */
+
 *{
     margin: 0;
     padding: 0;
@@ -178,6 +180,53 @@ button:hover span{
     width: 100%;
 
 }
+
+/* SECOND HALF OF MAIN PAGE */
+.middle{
+
+    display: flex;
+    height: 75vh;
+    background-color:#ffffff;
+    justify-content: center;
+    align-items: center;
+}
+
+.Rect{
+
+    display: flex;
+    height: 600px;
+    width: 1300px;
+    background-color:#4f5a64;
+    border-radius: 25px;
+    justify-content: center;
+    align-items: center  ;
+    
+}
+
+.Rectext{
+
+    display: block;
+    width: 500px;
+    text-align: center;
+
+}
+
+
+
+.middle h3{
+
+
+    position: relative;
+    color: #000000;
+    font-family: 'Sofia';
+    font-size: 40px;
+    
+
+}
+
+
+/* MEDIA AREA */
+
 @media(max-width: 320px){
     .logoheader a{
       
