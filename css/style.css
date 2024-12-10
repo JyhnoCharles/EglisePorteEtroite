@@ -186,7 +186,7 @@ button:hover span{
 
     display: flex;
     height: 75vh;
-    background-color:#ffffff;
+    background-color:#3f3e3e;
     justify-content: center;
     align-items: center;
 }
@@ -194,20 +194,29 @@ button:hover span{
 .Rect{
 
     display: flex;
-    height: 600px;
+    height: 500px;
     width: 1300px;
-    background-color:#4f5a64;
+    background-color:#3f3e3e;
     border-radius: 25px;
     justify-content: center;
     align-items: center  ;
     
 }
 
+.Rect p{
+    margin-top: 30px;
+    
+}
+
 .Rectext{
 
     display: block;
-    width: 500px;
+    width: 825px;
     text-align: center;
+    margin-bottom: 20px;
+    padding: 30px;
+    color: #fff;
+    
 
 }
 
@@ -217,8 +226,8 @@ button:hover span{
 
 
     position: relative;
-    color: #000000;
-    font-family: 'Sofia';
+    color: #ffffff;
+    font-family: 'Arial';
     font-size: 40px;
     
 
@@ -314,6 +323,33 @@ button:hover span{
     .logo {
         z-index: 999;
     }
+    
+    .Rect{
+     
+       display:inline-block;
+
+       width: auto;
+       
+      
+
+    }
+
+    .Rectext{
+
+        align-self: center;   
+        font-size: 15px;     
+    }
+    .Rectext p{
+        font-size: 20px;
+    }
+
+    .video {
+        position: absolute;
+        justify-content: center;
+        height: 300px;
+    
+    }
+
    
 
 }
