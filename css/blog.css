@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background-color: darkgray;
+    
 
 }
 
@@ -17,6 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: #2c3e50;
     padding: 10px 15px;
    
 }
@@ -80,6 +81,15 @@
     
 }
 
+
+/* Add margin to the main content to avoid overlap with the fixed navbar */
+.content {
+    margin-top: 80px; /* Adjust based on navbar height */
+    background-color: darkgray;
+    height: 100vh;
+    
+}
+
 h1{
     position:fixed ;
     color: #ffffff;
@@ -92,12 +102,146 @@ h1 a{
     color:#ffffff
 }
 
-.content{
+.checkbtn {
+    display: block; /* Ensure it's always visible */
+    font-size: 30px;
+    color: white; 
+    position: absolute;
+    top: 25px;
+    right: 85px;
+    z-index: 999;
+    cursor: pointer;
 
-    width: 100%;
-    position:absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    text-align: center;
-    color: #fff;
+    display: none;
+}
+#check{
+    display: none;
+}
+
+
+
+@media(max-width: 320px){
+    .logoheader a{
+      
+       position: relative;
+       right: 13px;
+        
+      
+    }
+    .logo img{
+
+        height: 40px;
+    }
+
+    .checkbtn{
+        right: 50px;
+    }
+
+
+ 
+
+    
+}
+/* Media Query */
+@media (max-width: 500px) {
+    .logoheader a{
+      
+        position: relative;
+        right: 12px;
+        font-size: 20px;
+      
+    }
+
+
+    .navbar ul li{
+      font-size: 5px;
+    }
+    .logo img{
+        height: 40px;
+    }
+    .video {
+        
+        padding-left: 150px ;
+        
+    
+    }
+    
+
+}
+
+@media (max-width: 937px) {
+
+    .navbar{
+        height: 63px;
+    }
+
+    .logoheader a{
+      
+        margin-top: 30px ;
+      
+    }
+
+    .checkbtn {
+        display: block; /* Ensure it's always visible */
+        
+    }
+    .navbar ul{
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #2c3e50;
+        top: -1000px;
+        left: 0;
+        text-align: center;
+        display: block;
+        transition: all .5s;
+        padding: 0%;
+        margin: 0px;
+    }
+    .navbar ul li {
+        top: 50px;
+        padding: 35px 20px;
+        text-align: center;
+        display: block;
+    }
+    .navbar ul li a{
+        font-size: 30px;
+
+    }
+    #check:checked ~ ul {
+        top: 0;
+    }
+    
+    .navbar ul li:hover::after{
+        width: 0%;
+        
+    }
+    .logo {
+        z-index: 999;
+    }
+
+    /* Footer */
+    #location{
+        font-size: 16px;
+    }
+
+    #copyright{
+        font-size: 15px;
+    }
+    .widgits{
+
+   
+        font-size: 20px;
+     
+        
+        
+    }
+
+    
+   
+
+
+
+   
+
 }
