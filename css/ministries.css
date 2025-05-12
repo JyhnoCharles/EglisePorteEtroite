@@ -10,6 +10,11 @@
 
 }
 
+h1 {
+
+    color: #ffffff;
+}
+
 .banner 
 {
  height: 78px;
@@ -69,7 +74,7 @@
     
 }
 
-h1{
+.banner h1{
     position:fixed ;
     color: #ffffff;
     cursor: pointer;
@@ -131,12 +136,77 @@ h1 a{
     
 }
 
-/* Middle top */
+
+/* Church Area main */
 .middle{
+    position: relative;
     background-color: #3f3e3e;
-    display: block;
-    flex-direction: row;
-    height: 100vh;
+    height: 500vh;
+}
+.buildingtext{
+    color: #fff;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.churche h1{
+   
+    text-align: center;
+    font-family: Geneva;
+    font-size: 50px;
+    text-decoration: underline;
+
+}
+.churche img{
+
+    height: 50vh;
+
+}
+
+.slidecontainer{
+    position:relative;     
+    overflow: hidden;
+    max-width: 1500px; 
+    margin: 40px auto; /* does not work yet*/
+} 
+
+.gallery{
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    gap: 700px;
+    
+}
+
+.arrow{
+    color:#000000;
+    cursor: pointer;
+    font-size: 60px;
+    background-color: rgba(255, 255, 255, .1);
+    border: none;
+    position: absolute;
+    top: 40%;
+    z-index: 999;
+   
+}
+
+.next{
+    left: 100px;
+}
+
+.prev{
+     right: 100px;
+}
+
+
+.building {
+
+     flex:0 0 100vh;
+     height: 100%;
+     object-fit: cover;
+  margin: 100px auto; /*  up-down   left-right */
+ 
+
+  
 
 }
 
@@ -147,11 +217,8 @@ h1 a{
     
 }
 .pastor{
-
+    position:absolute;
     display: block;
-    margin-top: 100px;
-    margin-left: 350px;
-    color: rgb(255, 255, 255);
 }
 .pastor h1{
     display: block;
@@ -161,16 +228,17 @@ h1 a{
    
 }
 
-.churche img{
-
-    height: 50vh;
-
-}
 
 
 
 
 /* Middle bottom */
+
+
+
+
+
+
 
 /* FOOTER AREA */
 
@@ -323,6 +391,14 @@ footer {
     }
     .logo {
         z-index: 999;
+    }
+    /* Middle */
+
+    .building{
+
+        width: auto;
+        height: auto;
+    
     }
 
     /* Footer */
