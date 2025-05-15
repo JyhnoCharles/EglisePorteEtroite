@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang ="en">
+    <head>
+        <meta charset = "utf-8" /> 
+        <link Rel="icon" href="Images/logoback.png" type="Images/x-icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Eglise Porte Etroite </title>
+        <link rel="stylesheet" href="css/loginstyle.css"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>    
+        <script type="module" src="JavaScript/login.js"></script>
+        
+
+    </head>
+       <body>
+        <div class="banner">
+            <div class = "navbar">
+                <div class = "logo"> <img src="Images/logoback.png" height="50" alt="Eglise Porte Etroite"> </div>
+            
+                <h1 class="logoheader"><a href="index.html"> Eglise Porte Etroite</a> </h1>
+
+                <input type="checkbox" id="check">
+                <label for="check" class="checkbtn">
+                    <i class="fas fa-bars"></i>
+                </label>
+                <ul>
+                    <li><a href="index.html"> Home </a></li>
+                    <li><a href="ministries.html"> About </a></li>   
+                    <li><a href="mailto:admin@porteetroite.org"> Contacts </a></li>
+                    <li><a href="blog.html"> Blog </a></li>
+                    <li><a href="https://www.paypal.com/paypalme/EglisePorteEtroite"> Give </a></li>
+                    <li><a href="adminlogin.html"> Login </a></li>
+                </ul>
+            </div>
+            
+
+        </div>
+
+
+
+
+
+
+        <!--  User login ( only admin) -->
+
+        <div class="background"> 
+            <form class="loginContainer" id="loginform">
+                <h2 class="logintxt"> Login </h2>
+
+                <div class="login" method="post">
+                   <label for="user"> Username </label>
+                   <input class="inputs"id="user"  name="username" type="username" required>
+
+                    <label for="pass"> Password </label>
+                   <input class="inputs" id="pass"  name="password" type="password" required>
+
+                   <button type="submit" class="loginbtn" >LOG IN</button>
+
+
+
+
+
+                </div>
+
+
+
+
+            </form>
+        </div>
+    </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

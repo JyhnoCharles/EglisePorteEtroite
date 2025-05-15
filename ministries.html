@@ -10,7 +10,7 @@
         <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>    
-
+        
 
     </head>
     <body>
@@ -26,10 +26,11 @@
                 </label>
                 <ul>
                     <li><a href="index.html"> Home </a></li>
-                    <li><a href="ministries.html"> About </a></li>   <!-- Change to about-->
+                    <li><a href="ministries.html"> About </a></li>   
                     <li><a href="mailto:admin@porteetroite.org"> Contacts </a></li>
                     <li><a href="blog.html"> Blog </a></li>
                     <li><a href="https://www.paypal.com/paypalme/EglisePorteEtroite"> Give </a></li>
+                    <li><a href="adminlogin.html"> Login </a></li>
                 </ul>
             </div>
             
@@ -37,20 +38,42 @@
         </div>
 
         <section class = "middle">
-            <!-- <div class="churche">  
-                <img src="Images/mainchurche.jpg"> 
-                <br> Pastor Johny and Widleine Pierre Charles  <br> 
+            <div class="churche">  
+                 <!-- <h1> Our Story </h1> 
+                    <div class="slidecontainer">
+                        
+                            <button class="arrow next"  onclick="moveSlide(-1)" > < </button>
+                            <button class="arrow prev" onclick="moveSlide(1)"> > </button>
+
+                        <div class = "gallery">
+
+
+                            <img class = "building" src="Images/mainchurche.jpg"> 
+                            <img class = "building" src="Images/IMG1.JPG">       
+                            <img class = "building" src="Images/IMG2.JPG">
+
+                        </div>
+                    </div>
                 
+                <div class="buildingtext">
+                   
+                    <h2> One night, a boy named Eli found a glowing marble in his backyard that 
+                        whispered riddles when the moon was full. Curious, he followed the marble’s hum into the woods, where it led him to a tree with 
+                        a door carved into its trunk. Inside, he met a talking fox who claimed to be a retired wizard trapped in animal form. 
+                        Eli promised to help break the curse, but when he returned the next night, the tree—and the fox—were gone. 
+                    </h2>
+                </div>
+                 -->
                 
             </div>
-            <div class="pastor">  
+            <!-- <div class="pastor">  
                 <img src="Images/Pastormin.png"> 
                 <h1>  Lead Pastor & wife <br> Pastor Johny and Widleine Pierre Charles  <br> </h1>
                 
                 <p> <ion-icon name="mail-outline"></ion-icon> Email@gmail.com <br> <ion-icon name="call-outline"></ion-icon> (256)-557-0525</p>
             </div> -->
 
-            <h1> Coming Soon.... </h1>
+            <h1> Coming Soon.... </h1> 
 
 
 
@@ -77,6 +100,21 @@
 
             </div>
        </section>
+
+
+     <script>
+let currentSlide = 0;
+const slidesStrip = document.querySelector(".gallery");
+const totalSlides = document.querySelectorAll(".building").length;
+
+function moveSlide(dir) {
+  currentSlide += dir;
+  if (currentSlide < 0) currentSlide = totalSlides - 1;
+  if (currentSlide >= totalSlides) currentSlide = 0;
+  slidesStrip.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
+</script>
+
    
     </body>
 </html>
