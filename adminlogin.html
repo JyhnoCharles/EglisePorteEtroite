@@ -10,6 +10,7 @@
         <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>    
+        <script type="module" src="JavaScript/login.js"></script>
         
 
     </head>
@@ -45,15 +46,15 @@
         <!--  User login ( only admin) -->
 
         <div class="background"> 
-            <div class="loginContainer">
+            <form class="loginContainer" id="loginform">
                 <h2 class="logintxt"> Login </h2>
 
                 <div class="login" method="post">
                    <label for="user"> Username </label>
-                   <input class="inputs"id="user"  name="username" type="text" required>
+                   <input class="inputs"id="user"  name="username" type="username" required>
 
                     <label for="pass"> Password </label>
-                   <input class="inputs" id="pass"  name="password" type="text" required>
+                   <input class="inputs" id="pass"  name="password" type="password" required>
 
                    <button type="submit" class="loginbtn" >LOG IN</button>
 
@@ -66,7 +67,7 @@
 
 
 
-            </div>
+            </form>
         </div>
     </body>
 
