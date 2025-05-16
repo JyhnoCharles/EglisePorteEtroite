@@ -18,13 +18,13 @@ const form = document.getElementById('loginform');
 form.addEventListener('submit', async(e) => {
     e.preventDefault(); // test this later
 
-    const username     = e.target.username.value;
+    const email        = e.target.email.value;
     const password     = e.target.password.value;
 
     try{
 
         //Checks and  Verifies login information
-        const { error } = await supabase.auth.signInWithPassword({ username, password});
+        const { error } = await supabase.auth.signInWithPassword({ email, password});
 
         if (error) throw error; // worng password or user does not exist
 
