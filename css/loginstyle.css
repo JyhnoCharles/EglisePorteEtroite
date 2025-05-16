@@ -27,7 +27,6 @@ All styles for admin login
 /* Navbar stays fixed at the top */
 .navbar {
     position: fixed;
-    top: 1px;
     left: 0;
     width: 100%;
     z-index: 999; /* Ensure it stays above other content */
