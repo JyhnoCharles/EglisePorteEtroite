@@ -83,7 +83,6 @@
 
 /* Add margin to the main content to avoid overlap with the fixed navbar */
 .content {
-    margin-top: 80px; /* Adjust based on navbar height */
     background-color: darkgray;
     height: 100vh;
     
