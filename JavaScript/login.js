@@ -3,11 +3,10 @@
 // 
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-const ENV = (typeof import.meta !== 'undefined' && import.meta.env) || {};
+//
+const SUPABASE_URL = import.meta.env.SUPABASE_URL;
+const SUPABASE_KEY = import.meta.env.SUPABASE_ANON_KEY;
 
-// our databa base information
-const SUPABASE_URL = ENV.SUPABASE_URL || 'https://bpuvpllpfwfqgirbxbup.supabase.co';
-const SUPABASE_KEY = ENV.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJwdXZwbGxwZndmcWdpcmJ4YnVwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDcwOTcxMDYsImV4cCI6MjA2MjY3MzEwNn0.wYnCtBZW8qqKOknXFbDk2HkSQt12nMxM2EmhkTBKbps';
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
