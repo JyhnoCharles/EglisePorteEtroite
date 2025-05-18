@@ -1,8 +1,17 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
 
-const SUPABASE_URL = import.meta.env.SUPABASE_URL;
-const SUPABASE_KEY = import.meta.env.SUPABASE_ANON_KEY;
+// at top of login.js (and filltable.js)
+const ENV = (typeof import.meta !== 'undefined' && import.meta.env) || {};
+
+// now safely read (no hard-coded secret!)
+const SUPABASE_URL = ENV.SUPABASE_URL;
+const SUPABASE_KEY = ENV.SUPABASE_ANON_KEY;
+
+if (!SUPABASE_URL || !SUPABASE_KEY) {
+  console.error('Missing Supabase env vars; set them in Vercel or your local bundler.');
+}
+
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
