@@ -428,7 +428,7 @@ footer {
     }
     .video {
         
-        padding-left: 150px ;
+        padding-left: 70px ;
         
     
     }
@@ -511,6 +511,7 @@ footer {
         justify-content: center;
         align-items: center;
         height: 250px;
+        width: 300px;
 
     
         
