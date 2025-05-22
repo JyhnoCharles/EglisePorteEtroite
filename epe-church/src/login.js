@@ -5,18 +5,10 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 //
  
-
-
-
-
-
 // now safely read (no hard-coded secret!)
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-if (!SUPABASE_URL || !SUPABASE_KEY) {
-  console.error('Missing Supabase env vars; set them in Vercel or your local bundler.');
-}
 
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
