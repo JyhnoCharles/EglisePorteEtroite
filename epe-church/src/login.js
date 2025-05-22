@@ -1,7 +1,7 @@
 
 // Connect to adminLogin.html
 // 
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+import { createClient } from '@supabase/supabase-js';
 
 //
  
@@ -9,6 +9,13 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
+if (!SUPABASE_URL || !SUPABASE_KEY)  {
+  console.error(' Missing env vars:', {
+    SUPABASE_URL,
+    SUPABASE_KEY
+  });
+  throw new Error('Missing Supabase configuration');
+}
 
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
