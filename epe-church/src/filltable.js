@@ -40,7 +40,7 @@ async function loadMembers() {
     const [first, ...rest] = (m.Name ?? '').split(' ');
     const last = rest.join(' ');
     return `<tr>
-      <td>${m.id}</td>
+      <td>${m.ID}</td>
       <td>${first}</td>
       <td>${last}</td>
       <td>${m.Address}</td>
