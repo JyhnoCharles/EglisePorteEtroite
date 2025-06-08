@@ -7,6 +7,7 @@
     <title> Eglise Porte Etroite </title>
     <link rel="stylesheet" href="/css/admindashboard.css"/>
     <script type="module" src="src/filltable.js"></script>
+    <script type="module" src="src/adminPages.js"></script>
    
  </head>
  <body>
@@ -16,9 +17,9 @@
 
 
       <nav class="nav">
-         <button class="members" >Members</button>
-         <button class="attandance" >Attandance</button>
-         <button class="scanner" >Scanner</button>
+         <button data-view="members" class="members" >Members</button>
+         <button data-view="attandance" class="attandance" >Attandance</button>
+         <button data-view="scanner" class="scanner" >Scanner</button>
       </nav>
    
    
@@ -27,7 +28,7 @@
 
    <main>
 
-      <section id="members">
+      <section id="members" class="view">
 
          <div class="tablecontainer">
             <table id="membersTable">
@@ -65,13 +66,17 @@
 
          
       </section>
-      <section id="attandance" hidden>
+      <section id="attandance" class ="view" hidden>
 
 
 
 
       </section>
-      <section id="scanner" hidden>
+      <section id="scanner" class="view" hidden>
+
+         <label for="user"> Barcode: </label>
+          <input class="inputs" id="bqinput"  placeholder="San Barcode...." type="text" autofocus>
+
 
 
 
