@@ -28,6 +28,7 @@
 
    <main>
 
+      <!-- main  Page -->
       <section id="members" class="view">
 
          <div class="tablecontainer">
@@ -66,12 +67,48 @@
 
          
       </section>
+
+      <!-- Attendance Page -->
+
+
       <section id="attandance" class ="view" hidden>
 
+         <div>
+          <table id="attTable">
+                  <caption class="tabletitle">
+                     EPE&nbsp;Attandance
+                  </caption>
+               
+               <thead>
+                  <tr>
 
+                     <th scope="col"> # </th>
+                     <th scope="col"> ID </th>
+                     <th scope="col"> First&nbsp;Name </th>
+                     <th scope="col"> Last&nbsp;Name </th>
+                     <th scope="col"> Attandance </th>
+                    
+                  </tr>
+               </thead>
+               <tbody>   
+                  
+                  <!-- will be filled using js -->   
+                  
+               
+               </tbody>
+            </table>
 
+              <button id = "aprev"> Previous </button>
+              <button id = "anext"> Next </button>
+
+         </div>
+
+            
 
       </section>
+
+         <!-- Scanner Page -->
+
       <section id="scanner" class="view" hidden>
 
          <label for="user"> Barcode: </label>
