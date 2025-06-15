@@ -18,11 +18,39 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 console.log('filltable.js loaded, running at', new Date());
 
 
+const pageSize = 20;
+
+let currentPage = 1;
+
+
+
+const prevBtn = document.getElementById('prev');
+const nextBtn = document.getElementById('next');
+
+nextBtn.addEventListener('click', () => {
+  currentPage++;
+  loadMembers();
+});
+prevBtn.addEventListener('click', () => {
+  if (currentPage > 1){
+
+  currentPage--;
+  loadMembers();
+  }
+});
+
+
+
 async function loadMembers() {
+
+  const from  = (currentPage - 1) * pageSize;
+  const to = (pageSize * currentPage) - 1;
+
   // ③ Fetch rows
   const { data: members, error } = await supabase
     .from('members')                             // exact, lower-case table name
-    .select('ID, Name, Phone_Number, Address')
+    .select('*')
+    .range(from,to)
     .order('ID', { ascending: true });
 
     console.log('members →', members, 'error →', error);   
@@ -34,12 +62,20 @@ async function loadMembers() {
     return;
   }
 
+  // Prev and next page
+ 
+
   // ④ Build and inject rows
   const tbody = document.querySelector('#membersTable tbody');
-  tbody.innerHTML = members.map(m => {
+  tbody.innerHTML = members.map((m,i) => {
+
+    const rowNumber = (currentPage - 1) * pageSize + i + 1;
+
+
     const [first, ...rest] = (m.Name ?? '').split(' ');
     const last = rest.join(' ');
     return `<tr>
+      <td>${rowNumber}</td>
       <td>${m.ID}</td>
       <td>${first}</td>
       <td>${last}</td>

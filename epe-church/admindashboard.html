@@ -7,6 +7,7 @@
     <title> Eglise Porte Etroite </title>
     <link rel="stylesheet" href="/css/admindashboard.css"/>
     <script type="module" src="src/filltable.js"></script>
+    <script type="module" src="src/adminPages.js"></script>
    
  </head>
  <body>
@@ -16,9 +17,9 @@
 
 
       <nav class="nav">
-         <button class="members" >Members</button>
-         <button class="attandance" >Attandance</button>
-         <button class="scanner" >Scanner</button>
+         <button data-view="members" class="members" >Members</button>
+         <button data-view="attandance" class="attandance" >Attandance</button>
+         <button data-view="scanner" class="scanner" >Scanner</button>
       </nav>
    
    
@@ -27,7 +28,8 @@
 
    <main>
 
-      <section id="members">
+      <!-- main  Page -->
+      <section id="members" class="view">
 
          <div class="tablecontainer">
             <table id="membersTable">
@@ -37,6 +39,7 @@
                
                <thead>
                   <tr>
+                     <th scope="col"> # </th>
                      <th scope="col"> ID </th>
                      <th scope="col"> First&nbsp;Name </th>
                      <th scope="col"> Last&nbsp;Name </th>
@@ -50,8 +53,12 @@
                   
                
                </tbody>
+
             </table>
 
+            <button id = "prev"> Previous </button>
+            <button id = "next"> Next </button>
+           
 
          </div>
 
@@ -60,13 +67,53 @@
 
          
       </section>
-      <section id="attandance" hidden>
+
+      <!-- Attendance Page -->
 
 
+      <section id="attandance" class ="view" hidden>
 
+         <div>
+          <table id="attTable">
+                  <caption class="tabletitle">
+                     EPE&nbsp;Attandance
+                  </caption>
+               
+               <thead>
+                  <tr>
+
+                     <th scope="col"> # </th>
+                     <th scope="col"> ID </th>
+                     <th scope="col"> First&nbsp;Name </th>
+                     <th scope="col"> Last&nbsp;Name </th>
+                     <th scope="col"> Attandance </th>
+                    
+                  </tr>
+               </thead>
+               <tbody>   
+                  
+                  <!-- will be filled using js -->   
+                  
+               
+               </tbody>
+            </table>
+
+              <button id = "aprev"> Previous </button>
+              <button id = "anext"> Next </button>
+
+         </div>
+
+            
 
       </section>
-      <section id="scanner" hidden>
+
+         <!-- Scanner Page -->
+
+      <section id="scanner" class="view" hidden>
+
+         <label for="user"> Barcode: </label>
+          <input class="inputs" id="bqinput"  placeholder="San Barcode...." type="text" autofocus>
+
 
 
 
