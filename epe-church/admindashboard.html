@@ -31,8 +31,18 @@
       <!-- main  Page -->
       <section id="members" class="view">
 
+         <div class="UserSearch"> 
+
+            <label for="user"> Search: </label>
+          <input class="inputs" id="Searchbar"  placeholder="Search...." type="text" autofocus>
+
+         </div>
+          
+
+
+
          <div class="tablecontainer">
-            <table id="membersTable">
+            <table id="membersTable" class="mtable">
                   <caption class="tabletitle">
                      EPE&nbsp;Members
                   </caption>
@@ -56,11 +66,21 @@
 
             </table>
 
-            <button id = "prev"> Previous </button>
-            <button id = "next"> Next </button>
+          
            
 
          </div>
+
+
+         <div class="btns">
+
+            <button id = "prev"> Previous </button>
+            <button id = "next"> Next </button>
+
+
+         </div>
+
+          
 
 
 
@@ -100,6 +120,7 @@
 
               <button id = "aprev"> Previous </button>
               <button id = "anext"> Next </button>
+               <button onclick="deleteSelectedRow()" id = "delete"> delete </button>
 
          </div>
 

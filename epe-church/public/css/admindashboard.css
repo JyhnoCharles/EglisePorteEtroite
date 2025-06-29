@@ -28,9 +28,52 @@
     justify-self: flex-end;
 }
 
+main{
+    background-color: #3f3e3e;
+}
+
+
+
 /* START OF MEMEBER PAGE */
 .tabletitle{
     caption-side: top;
+    padding-bottom: 5px;
+    color:white;
+    font-weight: bold;
+
+}
+
+#members{
+ height: 100vh;
+}
+
+.tablecontainer{
+
+  display: flex;
+
+    padding-top: 70px;
+
+  justify-self: center;
+  align-items: center;
+
+}
+
+.tablecontainer table, td, th{ 
+    
+    border: 2px solid black;
+    border-collapse: collapse;
+    border-spacing: 5px;
+    background-color: white;
+    
+    padding: 8px;
+
+    
+
+}
+
+
+.selected-row {
+  background-color: lightcoral !important;
 }
 
 
@@ -41,8 +84,26 @@
 
 
 
-
-
-
-
 /* END MEMEBER PAGE */
+
+
+
+/* START OF ATTENDANCE PAGE */
+
+#attTable{
+
+    border-collapse: collapse;
+}
+
+
+
+
+/* END OF ATTENDANCE PAGE */
+
+
+
+
+/* START OF SCANNER PAGE */
+
+
+/* END OF SCANNER PAGE */

@@ -179,6 +179,7 @@ All styles for admin login
     margin-top: 40px;
     padding:20px;
     text-decoration: double;
+    cursor: pointer;
 }
 
 
