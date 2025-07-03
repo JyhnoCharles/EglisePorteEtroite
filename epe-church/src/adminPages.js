@@ -58,11 +58,12 @@ barcodeInput.addEventListener('keydown', async (e) => {
     // Mark them present for today
     const today = new Date().toLocaleDateString('en-CA')
 
-    const { error: insertError } = await supabase
+    const { error: upsertError } = await supabase
       .from('attendance')
-      .insert([{ ID: scannedID, Name: member.Name , date: today, status: 'present' }]);
+      .upsert([{ ID: scannedID, Name: member.Name , date: today, status: 'present' }], {onConflict:['ID', 'date']  })
+      .select();
 
-    if (insertError) {
+    if (upsertError) {
       alert('Error marking attendance.', error);
       console.error('Error marking attendance:', error);
     } else {
@@ -105,12 +106,14 @@ async function loadMembers() {
 
     console.log('members →', attend, 'error →', error);   
 
-  if (error) {
-    document.querySelector('#attTable tbody')
-      .innerHTML = `<tr><td colspan="5">Failed to load members</td></tr>`;
-    console.error(error);
+if (error) {
+    console.error("Failed to reload data:", error);
     return;
   }
+
+ 
+
+  
 
   // Prev and next page
  
@@ -124,7 +127,7 @@ async function loadMembers() {
 
     const [first, ...rest] = (m.Name ?? '').split(' ');
     const last = rest.join(' ');
-    return `<tr>
+    return `<tr data-id="${m.ID}" data-date="${m.date}" onclick="selectRow(this)">
       <td>${rowNumber}</td>
       <td>${m.ID}</td>
       <td>${first}</td>
@@ -140,4 +143,111 @@ if (document.readyState === 'loading') {
 } else {
   loadMembers();
 }
+
+
+
+// Selects row to be deleted
+let selectedRow = null;
+
+window.selectRow = function(row){
+
+  //unHighlight
+  document.querySelectorAll('#attTable tbody tr').forEach(tr => {
+    tr.computedStyleMap.backgroundColor = '';
+  });
+
+  // highlight
+  row.style.backgroundColor = 'lightcoral';
+  selectedRow = row;
+}
+
+
+window.deleteSelectedRow = async function(){
+  if(!selectedRow) {
+    alert("failed to delete");
+    return;
+  }
+
+   // Debug: Log the selected row's data
+  console.log("Selected row dataset:", selectedRow.dataset);
+
+  const rowID = selectedRow.dataset.id;
+  const date = selectedRow.dataset.date;
+
+  console.log("Trying to delete attendance record for ID:", rowID, "on date:", date);
+
+  try {
+  const { data, error } = await supabase 
+  .from('attendance')
+  .delete()
+  .eq('ID',rowID)
+  .eq('date',date )
+  .select();
+
+  console.log("Deleted rows:", data, "Error:", error);
+
+  if (error) throw error;
+    
+    // Only remove from UI if Supabase deletion succeeded
+    selectedRow.remove();
+    selectedRow = null;
+
+    await loadMembers();
+
+    alert("Successfully deleted record");
+    
+  } catch (error) {
+    console.error("Delete error:", error);
+    alert('Failed to delete: ' + error.message);
+  }
+}
+
+
+// Open and close pop-up
+window.memberModal = function () {
+  document.getElementById('memberModal').style.display = 'block';
+};
+
+window.closeMemberModal = function () {
+  document.getElementById('memberModal').style.display = 'none';
+  document.getElementById('modalResult').textContent = '';
+};
+
+
+document.getElementById('memberForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById('modalName').value.trim();
+  const address = document.getElementById('modalMemberAddress').value.trim();
+  const Phone = document.getElementById('modalMemberPhonenumber').value.trim();
+  const contactcell = document.getElementById('modalMemberContactCell').value.trim();
+  const resultDiv = document.getElementById('modalResult');
+
+  // Get last member_id
+  const { data: lastMember, error: fetchError } = await supabase
+    .from('members')
+    .select('ID')
+    .order('ID', { ascending: false })
+    .limit(1)
+    .single();
+
+  const nextMemberId = lastMember ? parseInt(lastMember.ID) + 1 : 1;
+
+  // Insert new member
+  const { data, error } = await supabase
+    .from('members')
+    .insert([{ID: nextMemberId, Name: name , Phone_Number: Phone, Contact_Cellphone: contactcell ,Address: address  }]);
+
+  if (error) {
+    resultDiv.textContent = error.message;
+  } else {
+    resultDiv.textContent = `Member #${nextMemberId} added!`;
+    document.getElementById('memberForm').reset();
+    setTimeout(closeMemberModal, 1000);
+  }
+});
+
+
+
+
 
