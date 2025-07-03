@@ -76,11 +76,30 @@
 
             <button id = "prev"> Previous </button>
             <button id = "next"> Next </button>
+            <button onclick="DeleteMember()" id = "delete"> delete </button>
+            <button onclick="memberModal()" id = "create"> create </button>
 
 
          </div>
 
-          
+                  <!-- Popup Modal -->
+         <div id="memberModal" style="display: none; position: fixed; top: 0; left: 0;
+         width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);">
+         
+         <div style="background: white; padding: 20px; max-width: 400px; margin: 100px auto; border-radius: 8px;">
+            <h3>New Member</h3>
+            <form id="memberForm">
+               <input type="text" id="modalName" placeholder="Name" required><br><br>
+                <input type="text" id="modalMemberPhonenumber" placeholder="Member's PhoneNumber" ><br><br>
+                <input type="text" id="modalMemberContactCell" placeholder="Contact Cellphone" ><br><br>
+                 <input type="text" id="modalMemberAddress" placeholder="Member's Address" ><br><br>
+               <button type="submit">Save</button>
+               <button type="button" onclick="closeMemberModal()">Cancel</button>
+            </form>
+            <div id="modalResult"></div>
+         </div>
+
+         </div>
 
 
 
@@ -132,8 +151,26 @@
 
       <section id="scanner" class="view" hidden>
 
-         <label for="user"> Barcode: </label>
-          <input class="inputs" id="bqinput"  placeholder="San Barcode...." type="text" autofocus>
+
+         <div class="scanbkg">    
+            
+
+            <div class="scan">  
+               
+               <label for="bqinput"> BARCODE: </label>
+               <input class="inputs" id="bqinput"  placeholder="San Barcode...." type="text" autofocus>
+
+
+
+            </div>
+           
+         
+         
+         
+         
+         
+         </div>
+        
 
 
 

@@ -202,3 +202,52 @@ window.deleteSelectedRow = async function(){
   }
 }
 
+
+// Open and close pop-up
+window.memberModal = function () {
+  document.getElementById('memberModal').style.display = 'block';
+};
+
+window.closeMemberModal = function () {
+  document.getElementById('memberModal').style.display = 'none';
+  document.getElementById('modalResult').textContent = '';
+};
+
+
+document.getElementById('memberForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById('modalName').value.trim();
+  const address = document.getElementById('modalMemberAddress').value.trim();
+  const Phone = document.getElementById('modalMemberPhonenumber').value.trim();
+  const contactcell = document.getElementById('modalMemberContactCell').value.trim();
+  const resultDiv = document.getElementById('modalResult');
+
+  // Get last member_id
+  const { data: lastMember, error: fetchError } = await supabase
+    .from('members')
+    .select('ID')
+    .order('ID', { ascending: false })
+    .limit(1)
+    .single();
+
+  const nextMemberId = lastMember ? parseInt(lastMember.ID) + 1 : 1;
+
+  // Insert new member
+  const { data, error } = await supabase
+    .from('members')
+    .insert([{ID: nextMemberId, Name: name , Phone_Number: Phone, Contact_Cellphone: contactcell ,Address: address  }]);
+
+  if (error) {
+    resultDiv.textContent = error.message;
+  } else {
+    resultDiv.textContent = `Member #${nextMemberId} added!`;
+    document.getElementById('memberForm').reset();
+    setTimeout(closeMemberModal, 1000);
+  }
+});
+
+
+
+
+
