@@ -44,7 +44,7 @@ main{
 }
 
 #members{
- height: 100vh;
+ 
 }
 
 .tablecontainer{
@@ -72,9 +72,7 @@ main{
 }
 
 
-.selected-row {
-  background-color: lightcoral !important;
-}
+
 
 
 
@@ -93,8 +91,12 @@ main{
 #attTable{
 
     border-collapse: collapse;
+    height: 100vh;
 }
 
+.selected-row {
+    background-color: lightcoral !important;
+  }
 
 
 
