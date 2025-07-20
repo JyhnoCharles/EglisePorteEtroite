@@ -66,9 +66,7 @@ barcodeInput.addEventListener('keydown', async (e) => {
     if (upsertError) {
       alert('Error marking attendance.', error);
       console.error('Error marking attendance:', error);
-    } else {
-      alert(` ${member.Name} marked present.`);
-    }
+    } 
   }
 });
 
