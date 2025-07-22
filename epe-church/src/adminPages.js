@@ -22,10 +22,12 @@ const views   = document.querySelectorAll('.view');
 
 buttons.forEach(btn => {
   btn.addEventListener('click', () => swapView(btn.dataset.view));
+  
 });
 
 function swapView(id){
   views.forEach(v => v.hidden = (v.id !== id)); // show one, hide the rest
+
 }
 
 
@@ -66,9 +68,7 @@ barcodeInput.addEventListener('keydown', async (e) => {
     if (upsertError) {
       alert('Error marking attendance.', error);
       console.error('Error marking attendance:', error);
-    } else {
-      alert(` ${member.Name} marked present.`);
-    }
+    } 
   }
 });
 

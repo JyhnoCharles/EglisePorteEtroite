@@ -165,14 +165,15 @@ h1 a{
 .slidecontainer{
     position:relative;     
     overflow: hidden;
-    max-width: 1500px; 
+    max-width: 1000px; 
     margin: 40px auto; /* does not work yet*/
 } 
 
 .gallery{
     display: flex;
     transition: transform 0.5s ease-in-out;
-    gap: 700px;
+    margin-left: 90px;
+    gap: 92px;
     
 }
 
@@ -201,8 +202,9 @@ h1 a{
 
      flex:0 0 100vh;
      height: 100%;
+     margin-left: 0px;
      object-fit: cover;
-  margin: 100px auto; /*  up-down   left-right */
+    /* margin: 100px auto;  up-down   left-right */
  
 
   
@@ -216,10 +218,55 @@ h1 a{
     
 }
 .pastor{
-    position:absolute;
+
+    opacity: 0;
+    transform: translateY((50px));
+    transition: opacity 4.5s ease, transform 4.5s ease;
+
+    padding-left: 10%;
+    text-align: left;
     display: block;
+    color: white;
 }
+
+.pastor.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
 .pastor h1{
+    display: block;
+    position: relative; 
+
+  
+   
+}
+
+/* assistant */
+.apastor img{
+
+  
+    height: 50vh;
+    
+}
+.apastor{
+
+    opacity: 0;
+    transform: translateY((50px));
+    transition: opacity 4.5s ease, transform 4.5s ease;
+
+    padding-right: 10%;
+    text-align: right;
+    display: block;
+    color:white;
+}
+
+.apastor.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+.apastor h1{
     display: block;
     position: relative; 
 
