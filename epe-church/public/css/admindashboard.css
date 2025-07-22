@@ -92,6 +92,7 @@ main{
 
     border-collapse: collapse;
     height: 100vh;
+    justify-self: center;
 }
 
 .selected-row {
