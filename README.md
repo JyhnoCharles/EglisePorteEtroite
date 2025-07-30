@@ -15,5 +15,5 @@ This is the official website for **Eglise Porte Etroite**, designed to serve our
 We use a lightweight SQL database to:
 
 - Store **contact form submissions** for easy follow-up
-- Create new Memebers
-- Keep attendacne of Memebers
+- Create new Members
+- Keep attendance of Members
