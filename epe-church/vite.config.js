@@ -13,7 +13,10 @@ export default defineConfig({
         blog:           'blog.html',
         contacts:       'contacts.html',
         gallery:        'gallery.html',
-        ministries:     'ministries.html'
+        ministries:     'ministries.html',
+        Checkout:       'checkout.html',
+        DonateSuccess:  'donate-success.html',
+        Policy:         'policy.html'
       }
     }
   }
