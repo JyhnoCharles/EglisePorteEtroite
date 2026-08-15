@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Give — Église Porte Étroite</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/public/css/donate.css" />
+    <script src="https://js.stripe.com/v3/"></script>
+  </head>
+  <body>
+    <div class="threshold">
+      <main class="give-card" aria-labelledby="give-heading">
+        <p class="eyebrow">Église Porte Étroite</p>
+        <h1 id="give-heading">Give</h1>
+        <p class="verse">
+          "Enter through the narrow gate." — Matthew 7:13
+        </p>
+
+        <div class="give-form" id="give-form">
+          <div class="field-group">
+            <span class="field-label">Amount</span>
+            <div class="amount-buttons">
+              <button class="amount-btn" data-amount="25" type="button">$25</button>
+              <button class="amount-btn is-selected" data-amount="50" type="button">$50</button>
+              <button class="amount-btn" data-amount="100" type="button">$100</button>
+              <div class="custom-amount-wrap">
+                <span class="currency-mark">$</span>
+                <input
+                  type="number"
+                  id="customAmount"
+                  placeholder="Other"
+                  min="1"
+                  inputmode="decimal"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="fundSelect">Fund</label>
+            <div class="select-wrap">
+              <select id="fundSelect">
+                <option value="Tithe">Tithe</option>
+                <option value="Offering">Offering</option>
+                <option value="Building">Building Fund</option>
+                <option value="Missions">Missions</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="recurring-row" for="recurringCheck">
+            <input type="checkbox" id="recurringCheck" />
+            <span class="checkbox-mark" aria-hidden="true"></span>
+            <span>Give this amount every month</span>
+          </label>
+
+          <button id="donateBtn" class="give-btn" type="button">
+            <span class="give-btn-label">Continue to give</span>
+          </button>
+
+          <p class="fine-print">
+            Payments are processed securely by Stripe. You'll receive an
+            emailed receipt for your records.
+            <a href="/policy.html">See our donation policy</a>.
+          </p>
+        </div>
+
+        <div id="checkout"></div>
+      </main>
+    </div>
+
+    <script src="/public/donate.js"></script>
+  </body>
+</html>

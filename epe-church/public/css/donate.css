@@ -1,0 +1,405 @@
+:root {
+  --ink: #1b2a4a;
+  --ink-deep: #101a30;
+  --parchment: #faf7f0;
+  --brass: #c9a24b;
+  --brass-soft: #e4cd8f;
+  --ember: #8b3a3a;
+  --line: rgba(27, 42, 74, 0.14);
+  --text-soft: rgba(27, 42, 74, 0.62);
+  --shadow: 0 30px 60px -30px rgba(16, 26, 48, 0.45);
+  --radius-card: 6px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--ink);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+/* ---------- The Threshold: arched doorway frame ---------- */
+
+.threshold {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 0%, rgba(201, 162, 75, 0.16), transparent 70%),
+    linear-gradient(180deg, var(--ink-deep) 0%, var(--ink) 55%, #223257 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.threshold::before {
+  /* faint vertical "light rays" through the doorway, like clerestory windows */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(250, 247, 240, 0.035) 0px,
+    rgba(250, 247, 240, 0.035) 1px,
+    transparent 1px,
+    transparent 84px
+  );
+  pointer-events: none;
+}
+
+.give-card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: var(--parchment);
+  padding: 56px 40px 40px;
+  box-shadow: var(--shadow);
+
+  /* the arch: a rounded top evoking a doorway / stained-glass window */
+  border-radius: 220px 220px 14px 14px;
+  border: 1px solid rgba(201, 162, 75, 0.35);
+}
+
+.give-card::before {
+  /* inner brass arch line, set slightly inside the card edge */
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  height: 120px;
+  border: 1px solid rgba(201, 162, 75, 0.55);
+  border-bottom: none;
+  border-radius: 200px 200px 0 0;
+  pointer-events: none;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass);
+  font-weight: 600;
+}
+
+h1 {
+  margin: 0 0 10px;
+  text-align: center;
+  font-family: "Fraunces", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: 42px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.verse {
+  margin: 0 0 32px;
+  text-align: center;
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+.field-group {
+  margin-bottom: 22px;
+}
+
+.field-label {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.amount-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 1.15fr;
+  gap: 8px;
+}
+
+.amount-btn {
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 12px 6px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.amount-btn:hover {
+  border-color: var(--brass);
+}
+
+.amount-btn.is-selected {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--parchment);
+}
+
+.amount-btn:focus-visible,
+.give-btn:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+}
+
+.custom-amount-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.currency-mark {
+  position: absolute;
+  left: 12px;
+  color: var(--text-soft);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+#customAmount {
+  width: 100%;
+  padding: 12px 10px 12px 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  background: #fff;
+}
+
+#customAmount::placeholder {
+  color: rgba(27, 42, 74, 0.38);
+}
+
+.select-wrap select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: #fff;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  cursor: pointer;
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--text-soft) 50%),
+    linear-gradient(135deg, var(--text-soft) 50%, transparent 50%);
+  background-position: calc(100% - 18px) center, calc(100% - 13px) center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.recurring-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+  font-size: 14px;
+  color: var(--ink);
+  cursor: pointer;
+  user-select: none;
+}
+
+.recurring-row input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.checkbox-mark {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fff;
+  position: relative;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.recurring-row input:checked + .checkbox-mark {
+  background: var(--brass);
+  border-color: var(--brass);
+}
+
+.recurring-row input:checked + .checkbox-mark::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border: solid var(--ink-deep);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.recurring-row input:focus-visible + .checkbox-mark {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+}
+
+.give-btn {
+  width: 100%;
+  padding: 15px;
+  background: var(--ink);
+  color: var(--parchment);
+  border: none;
+  border-radius: var(--radius-card);
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.give-btn:hover {
+  background: var(--ink-deep);
+}
+
+.give-btn:active {
+  transform: translateY(1px);
+}
+
+.give-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fine-print {
+  margin: 16px 0 0;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-soft);
+}
+
+.fine-print a {
+  color: var(--text-soft);
+  text-decoration: underline;
+  text-decoration-color: var(--brass);
+  text-underline-offset: 2px;
+}
+
+.fine-print a:hover {
+  color: var(--ink);
+}
+
+#checkout {
+  margin-top: 8px;
+}
+
+/* ---------- Success page ---------- */
+
+.result-card {
+  text-align: center;
+}
+
+.result-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: var(--brass-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.result-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.result-detail {
+  margin: 4px 0 28px;
+  font-size: 14px;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+
+.result-detail strong {
+  color: var(--ink);
+}
+
+.result-status {
+  display: inline-block;
+  margin-bottom: 18px;
+  padding: 5px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.result-status.is-success {
+  background: rgba(201, 162, 75, 0.18);
+  color: #8a6a1f;
+}
+
+.result-status.is-pending {
+  background: rgba(139, 58, 58, 0.12);
+  color: var(--ember);
+}
+
+.return-link {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--brass);
+  padding-bottom: 2px;
+}
+
+.return-link:hover {
+  color: var(--ember);
+}
+
+@media (max-width: 480px) {
+  .give-card {
+    padding: 48px 24px 32px;
+  }
+  h1 {
+    font-size: 34px;
+  }
+  .amount-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .custom-amount-wrap {
+    grid-column: span 2;
+  }
+}
