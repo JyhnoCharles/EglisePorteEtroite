@@ -1,5 +1,5 @@
-// Replace with your actual publishable key from the Stripe Dashboard (safe to expose in frontend code)
-const stripe = Stripe("pk_test_YOUR_PUBLISHABLE_KEY_HERE");
+
+const stripe = Stripe("pk_test_51U31pHRFiASSWZAbP6rLlUXr932hrOapTIDjqH67p2nyFNaaKFHNloudVjawXimGJaHhgop80n1eJwyNDP5jagIi00lRlLkU6G");
 
 let selectedAmount = 50;
 
