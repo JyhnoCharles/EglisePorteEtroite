@@ -1,12 +1,24 @@
+
 *{
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    
 
 }
 
+h1 {
 
+    color: #ffffff;
+}
+
+.banner 
+{
+ height: 78px;
+ background-color: rgb(255, 255, 255);
+ background-size: cover;
+ background-position: center;
+
+}
 /* Navbar stays fixed at the top */
 .navbar {
     position: fixed;
@@ -16,8 +28,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #2c3e50;
     padding: 10px 15px;
+    background-color: #2c3e50;
+    opacity: 1;
    
 }
 
@@ -50,45 +63,28 @@
    
 }
 
-.navbar ul li{
-    list-style: none;
-    display: inline-block;
-    margin: 0 20px;
-    position: relative;
-}
-
-.navbar ul li a{
- text-decoration:none;
- color:#ffffff;
- text-transform: uppercase;
- font-weight: bold;
-}
-
-.navbar ul li::after{
-    content: '';
-    height: 3px;
-    width: 0%;
-    background: rgb(9, 89, 153);
-    position: absolute;
-    left: 0;
-    bottom: -8px;
-    transition: 0.5s;
-}
-
-.navbar ul li:hover::after{
-    width: 100%;
-    
-}
-
-
 /* Add margin to the main content to avoid overlap with the fixed navbar */
 .content {
-    background-color: darkgray;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    background-color: #494848 ;
     height: 100vh;
+
+    text-align: center;
+
     
 }
 
-h1{
+.content h2{
+
+    font-size: 40px;
+}
+
+.banner h1{
     position:fixed ;
     color: #ffffff;
     cursor: pointer;
@@ -114,6 +110,40 @@ h1 a{
 }
 #check{
     display: none;
+}
+
+
+
+.navbar ul li{
+    list-style: none;
+    display: inline-block;
+    margin: 0 20px;
+    position: relative;
+
+}
+
+.navbar ul li a{
+ text-decoration:none;
+ color:#000000;
+ text-transform: uppercase;
+ font-weight: bold;
+ color: #fff;
+}
+
+.navbar ul li::after{
+    content: '';
+    height: 3px;
+    width: 0%;
+    background: rgb(9, 89, 153);
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    transition: 0.5s;
+}
+
+.navbar ul li:hover::after{
+    width: 100%;
+    
 }
 
 

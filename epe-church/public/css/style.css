@@ -188,6 +188,7 @@ button:hover span{
     display: flex;
     height: 75vh;
     background-color:#3f3e3e;
+    background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)), url(/Images/IMG1.JPG);
     justify-content: center;
     align-items: center;
 }
@@ -198,6 +199,7 @@ button:hover span{
     height: 500px;
     width: 1300px;
     background-color:#3f3e3e;
+    background-color: rgba(63, 62, 62, 0.5);
     border-radius: 25px;
     justify-content: center;
     align-items: center  ;
@@ -211,17 +213,30 @@ button:hover span{
 
 .Rectext{
 
-    display: block;
+    display: flex;
   
     text-align: center;
     margin-bottom: 20px;
-    padding: 30px;
     color: #fff;
     
 
 }
 
+.video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+   
+}
+
+.yt {
+    /* width: min(420px, 90vw); */
+    height: auto;
+    aspect-ratio: 16 / 9;
+    max-width: 100%;
+    border-radius: 12px;
+}
 
 .middle h3{
 
@@ -229,7 +244,11 @@ button:hover span{
     position: relative;
     color: #ffffff;
     font-family: 'Arial';
-    font-size: 40px;
+    width: 450px;
+    font-weight: bold;
+    margin-right: 50px;
+    font-size: 60px;
+    text-align: center;
     
 
 }
@@ -272,7 +291,7 @@ video::-webkit-media-controls-start-playback-button {
     justify-content: center;
     align-items: center;
     gap: 100px;
-    margin-top: 30px;
+    margin-top: 45px;
     
 
 }
@@ -328,9 +347,7 @@ footer {
     position: relative; /* Make the footer the positioning context */
     background-color: #3f3e3e;
     background-size: cover;
-    height: 25vh;
     padding: 45px;
-    
 
 }
 
@@ -360,8 +377,7 @@ footer {
     gap: 40px;
     align-items:end;
     justify-content: end;
-    
-    height: 135px;
+
 
     font-size: 30px;
 
@@ -489,27 +505,39 @@ footer {
     .Rect{
      
        display:inline-block;
+        overflow:hidden;
 
-       width: auto;
        
       
 
     }
 
     .Rectext{
+        position: flex;
 
-        align-self: center;   
-        font-size: 15px;     
-    }
-    .Rectext p{
-        font-size: 20px;
-    }
-
-    .video {
-        position: absolute;
-        justify-content: center;
+        font-size: 15px;
+        text-align: center;
         align-items: center;
-        height: 250px;
+        justify-content: center;
+
+    }
+    .Rectext h3{
+
+        font-size: 30px;
+        text-align: center;
+        top: 45px;   
+        margin: 0 auto;
+        
+    }
+
+    .video-container {
+
+        position: relative;
+        top: 80px;
+        
+        margin: 0 auto;
+        /* width: 90%;
+        height: 250px; */
 
     
         
@@ -537,7 +565,11 @@ footer {
     .boxs{
 
     
-        gap: 5px;
+        gap: 0px;
+
+        justify-content: normal;
+
+        overflow: auto;
        
         
         

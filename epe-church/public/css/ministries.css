@@ -138,76 +138,103 @@ h1 a{
 
 /* Church Area main */
 .middle{
+    /* position: relative; */
+    
+    /* height: 200vh; */
+}
+
+.church-img-container{
     position: relative;
-    background-color: #3f3e3e;
-    height: 500vh;
-}
-.buildingtext{
-    color: #fff;
-    text-align: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-.churche h1{
-   
-    text-align: center;
-    font-family: Geneva;
-    font-size: 50px;
-    text-decoration: underline;
-
-}
-.churche img{
-
-    height: 50vh;
-
-}
-
-.slidecontainer{
-    position:relative;     
-    overflow: hidden;
-    max-width: 1500px; 
-    margin: 40px auto; /* does not work yet*/
-} 
-
-.gallery{
     display: flex;
-    transition: transform 0.5s ease-in-out;
-    gap: 700px;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.church-img{
+    
+    width: 100%;
+    height: 50px;
+    
+    height: auto;
+    margin: 0 auto;
+
+    object-fit: fill;
+
+    /* opacity: 0.8; */
+    filter: brightness(0.8); 
+}
+
+
+
+.img-message-container{
+    position:absolute;
+    display: flex; 
+
+    background-color: rgba(53, 53, 53, 0.9);
+    border-radius: 15px;
+
+    height: 300px;
+    width: 1300px;
+
+    justify-content: center;
+    
+    text-align: center;
+    
+
+
+
+    
+
+}
+
+.img-message-container h1 {
+    padding-top: 20px;
+    color: #ffffff;
+
+    
+    font-size: 50px;
+    
     
 }
 
-.arrow{
-    color:#000000;
-    cursor: pointer;
-    font-size: 60px;
-    background-color: rgba(255, 255, 255, .1);
-    border: none;
-    position: absolute;
-    top: 40%;
-    z-index: 999;
-   
+.img-message-container p {
+    padding-top: 40px;
+    color: #ffffff;
+
+    font-size: 30px;
+
+
+    
+    
+    
 }
 
-.next{
-    left: 100px;
-}
-
-.prev{
-     right: 100px;
+.leadership{
+    background-color: #494848;
+    height: 100vh;
 }
 
 
-.building {
 
-     flex:0 0 100vh;
-     height: 100%;
-     object-fit: cover;
-  margin: 100px auto; /*  up-down   left-right */
- 
 
-  
+.pastor{
+    position: relative;
+    display: flex;
 
+   padding-top: 100px;
+    
+
+    width: 75%;
+
+    left: 400px;
+
+    color: #ffffff;
+    z-index: 1;
 }
+
+
+
 
 .pastor img{
 
@@ -216,12 +243,22 @@ h1 a{
     
 }
 .pastor{
-    position:absolute;
-    display: block;
+
+    
 }
 .pastor h1{
-    display: block;
-    position: relative; 
+
+    padding-left: 50px;
+    padding-top: 50px;
+    font-size: 40px;
+
+
+    text-align: center;
+
+    font-weight: 400;
+    
+    
+    /* position: relative;  */
 
   
    
@@ -242,13 +279,12 @@ h1 a{
 /* FOOTER AREA */
 
 
+
 footer {
     position: relative; /* Make the footer the positioning context */
     background-color: #3f3e3e;
     background-size: cover;
-    height: 25vh;
     padding: 45px;
-    
 
 }
 
@@ -278,8 +314,7 @@ footer {
     gap: 40px;
     align-items:end;
     justify-content: end;
-    
-    height: 135px;
+
 
     font-size: 30px;
 

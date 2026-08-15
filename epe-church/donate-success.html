@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thank you — Église Porte Étroite</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/public/css/donate.css" />
+  </head>
+  <body>
+    <div class="threshold">
+      <main class="give-card result-card" id="result-card">
+        <p class="eyebrow">Église Porte Étroite</p>
+        <h1 id="result-heading">Checking your gift…</h1>
+        <p class="result-detail" id="result-detail">
+          One moment while we confirm this with Stripe.
+        </p>
+        <a class="return-link" href="/checkout.html">Return to giving page</a>
+      </main>
+    </div>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get("session_id");
+
+      const heading = document.getElementById("result-heading");
+      const detail = document.getElementById("result-detail");
+      const card = document.getElementById("result-card");
+
+      function centsToDollars(cents) {
+        return (cents / 100).toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+        });
+      }
+
+      async function checkStatus() {
+        if (!sessionId) {
+          heading.textContent = "No gift found";
+          detail.textContent =
+            "We couldn't find a session to confirm. If you completed a payment, check your email for a receipt.";
+          return;
+        }
+
+        try {
+          const res = await fetch(
+            `/api/check-session-status?session_id=${encodeURIComponent(sessionId)}`
+          );
+          const data = await res.json();
+
+          if (res.ok && data.paymentStatus === "paid") {
+            const amount = centsToDollars(data.amountTotal);
+            const cadence = data.recurring ? " every month" : "";
+
+            heading.textContent = "Thank you";
+            const badge = document.createElement("span");
+            badge.className = "result-status is-success";
+            badge.textContent = "Gift received";
+            heading.insertAdjacentElement("afterend", badge);
+
+            detail.innerHTML = `Your gift of <strong>${amount}</strong> to <strong>${data.fund}</strong>${cadence} has been received. A receipt has been emailed to you.`;
+          } else if (data.status === "open") {
+            heading.textContent = "Gift not completed";
+            const badge = document.createElement("span");
+            badge.className = "result-status is-pending";
+            badge.textContent = "Not completed";
+            heading.insertAdjacentElement("afterend", badge);
+            detail.textContent =
+              "It looks like checkout wasn't finished. No charge was made — feel free to try again.";
+          } else {
+            heading.textContent = "We couldn't confirm this gift";
+            detail.textContent =
+              "If you believe this is an error, please reach out to the church office with your payment details.";
+          }
+        } catch (err) {
+          console.error(err);
+          heading.textContent = "We couldn't confirm this gift";
+          detail.textContent =
+            "Something went wrong checking the payment status. Please contact the church office if you were charged.";
+        }
+      }
+
+      checkStatus();
+    </script>
+  </body>
+</html>
