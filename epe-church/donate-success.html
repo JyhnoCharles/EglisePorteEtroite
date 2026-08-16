@@ -63,7 +63,7 @@
             badge.textContent = "Gift received";
             heading.insertAdjacentElement("afterend", badge);
 
-            detail.innerHTML = `Your gift of <strong>${amount}</strong> to <strong>${data.fund}</strong>${cadence} has been received. A receipt has been emailed to you.`;
+            detail.innerHTML = `Your gift of <strong>${amount}</strong> to <strong>${data.fund}</strong>${cadence} has been received. A receipt has been emailed to you. God bless you for your generosity!`;
           } else if (data.status === "open") {
             heading.textContent = "Gift not completed";
             const badge = document.createElement("span");
