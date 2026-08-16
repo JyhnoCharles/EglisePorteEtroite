@@ -1,5 +1,5 @@
 
-const stripe = Stripe("pk_test_51U31p8IN2hGgTHPSMq7SQKTRfBYlrAvpQ27NQni74Au5jq9OECHH8CSUPZKSClxWj1RGMbimMWGO3zAvLyHspQa600r4gwyvgA");
+const stripe = Stripe("pk_live_51U31p8IN2hGgTHPSL6RQsRqBZEV0ryp46F0Ns1TCJcx5MK8iicbe9p5TIXszeJ5zEj5f2QB9jbADrlttamMLl2xB000p3veDYC");
 
 let selectedAmount = 50;
 
