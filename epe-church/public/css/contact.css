@@ -1,0 +1,344 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+
+}
+
+h1 {
+
+    color: #ffffff;
+}
+
+.banner 
+{
+ height: 78px;
+ background-color: rgb(255, 255, 255);
+ background-size: cover;
+ background-position: center;
+
+}
+/* Navbar stays fixed at the top */
+.navbar {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    z-index: 999; /* Ensure it stays above other content */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background-color: #2c3e50;
+    opacity: 1;
+   
+}
+
+/* Logo alignment */
+.logo img {
+    z-index: 999;
+    height: 50px;
+    padding-left:  5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Title alignment */
+.logoheader {
+    z-index: 999;
+    color: white;
+    left: 100px;
+    font-size: 25px;
+    margin-left: -20px;
+    text-decoration: none;
+}
+
+/* Navbar links */
+.navbar ul {
+    margin: 20px 30px;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+   
+   
+}
+
+/* Add margin to the main content to avoid overlap with the fixed navbar */
+.content {
+    margin-top: 80px; /* Adjust based on navbar height */
+    
+}
+
+.banner h1{
+    position:fixed ;
+    color: #ffffff;
+    cursor: pointer;
+   
+}
+
+h1 a{
+    text-decoration: none;
+    color:#ffffff
+}
+
+.checkbtn {
+    display: block; /* Ensure it's always visible */
+    font-size: 30px;
+    color: white; 
+    position: absolute;
+    top: 25px;
+    right: 85px;
+    z-index: 999;
+    cursor: pointer;
+
+    display: none;
+}
+#check{
+    display: none;
+}
+
+
+
+.navbar ul li{
+    list-style: none;
+    display: inline-block;
+    margin: 0 20px;
+    position: relative;
+
+}
+
+.navbar ul li a{
+ text-decoration:none;
+ color:#000000;
+ text-transform: uppercase;
+ font-weight: bold;
+ color: #fff;
+}
+
+.navbar ul li::after{
+    content: '';
+    height: 3px;
+    width: 0%;
+    background: rgb(9, 89, 153);
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    transition: 0.5s;
+}
+
+.navbar ul li:hover::after{
+    width: 100%;
+    
+}
+
+
+
+/* Middle */
+
+.middle{
+    min-height: calc(80vh - 78px);
+    padding: 110px 20px 60px;
+    background-color: #3b3b3b;
+}
+
+.contact-box-container {
+    box-sizing: border-box;
+    width: min(100%, 620px);
+    margin: 0 auto;
+    padding: 28px 34px 34px;
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.contact-box-container h2 {
+    margin-bottom: 24px;
+    color: #333333;
+    font-size: 26px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.name-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.field {
+    display: block;
+    margin-bottom: 18px;
+    color: #333333;
+    font-size: 14px;
+}
+
+.field span {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.field small {
+    color: #666666;
+    font-size: 12px;
+}
+
+.field input,
+.field textarea {
+    box-sizing: border-box;
+    width: 100%;
+    border: 1px solid #bdbdbd;
+    border-radius: 0;
+    background-color: #ffffff;
+    color: #333333;
+    font: inherit;
+    padding: 10px;
+}
+
+.field input {
+    height: 38px;
+}
+
+.field textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus {
+    outline: 2px solid #2c3e50;
+    outline-offset: 1px;
+}
+
+.contact-box-submit {
+    min-width: 122px;
+    padding: 13px 24px;
+    border: 0;
+    border-radius: 2px;
+    background-color: #252525;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.contact-box-submit:hover {
+    background-color: #2c3e50;
+}
+
+footer {
+    position: relative;
+    padding: 45px;
+    background-color: #3f3e3e;
+}
+
+#location,
+#copyright {
+    color: #ffffff;
+}
+
+#location {
+    font-size: 20px;
+}
+
+#copyright {
+    position: absolute;
+    bottom: 30px;
+}
+
+.widgits {
+    display: flex;
+    justify-content: flex-end;
+    gap: 40px;
+    padding-right: 20px;
+    font-size: 30px;
+}
+
+.socialicon {
+    color: #ffffff;
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        height: 63px;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    .logoheader a {
+        position: relative;
+        right: 12px;
+        font-size: 20px;
+    }
+
+    .checkbtn {
+        display: block;
+        right: 50px;
+    }
+
+    .navbar ul {
+        position: fixed;
+        top: -1000px;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        background: #2c3e50;
+        text-align: center;
+        transition: top 0.5s;
+    }
+
+    .navbar ul li {
+        display: block;
+        padding: 35px 20px;
+        text-align: center;
+    }
+
+    .navbar ul li a {
+        font-size: 30px;
+    }
+
+    #check:checked ~ ul {
+        top: 0;
+    }
+
+    .middle {
+        padding: 95px 14px 40px;
+    }
+
+    .contact-box-container {
+        padding: 24px 18px 26px;
+    }
+
+    .name-fields {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .contact-box-container h2 {
+        font-size: 23px;
+    }
+
+    footer {
+        padding: 35px 20px;
+    }
+
+    #location {
+        font-size: 16px;
+    }
+
+    #copyright {
+        position: static;
+        margin-top: 28px;
+        font-size: 13px;
+    }
+
+    .widgits {
+        gap: 24px;
+        padding-right: 0;
+        font-size: 24px;
+    }
+}

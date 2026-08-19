@@ -1,35 +1,152 @@
 <!DOCTYPE html><html lang = "en">
- <head>
-    <meta charset="utf-8"/>
-    <link Rel="icon" href="Images/logoback.png" type="Images/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Eglise Porte Etroite </title>
-    <link rel="stylesheet" href="css/about.css"/>
- </head>
- <body> 
-    <div class="banner">
-        <div class = "navbar">
-            <div class = "logo"> <img src="Images/logoback.png" height="50"> 
-        
-                <a href="index.html"> Eglise Porte Etorite </a>
-                </div>
+<head>
+        <meta charset = "utf-8" /> 
+        <link Rel="icon" href="Images/logoback.png" type="Images/x-icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Eglise Porte Etroite </title>
+        <link rel="stylesheet" href="/public/css/contact.css"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>    
+    </head>
+    <body>
+        <div class="banner">
+            <div class = "navbar">
+                 <div class = "logo"> <a href="index.html"> <img src="Images/logoback.png" height="50" alt="Eglise Porte Etroite"> </a> </div> 
+            
+                <h1 class="logoheader"><a href="index.html"> Eglise Porte Etroite</a> </h1>
+
+                <input type="checkbox" id="check">
+                <label for="check" class="checkbtn">
+                    <i class="fas fa-bars"></i>
+                </label>
                 <ul>
-                <li><a href="epeindex.html"> Home </a></li>
-                <li><a href="ministries.html"> About </a></li>
-                <li><a href="contacts.html"> Contacts </a></li>
-                <li><a href="blog.html"> Blog </a></li>
-                <li><a href="https://www.paypal.com/ncp/payment/Y7RSSXUKKU5PN"> Give </a></li>
-                <li><a href="adminlogin.html"> Login </a></li>
-
-
+                    <li><a href="index.html"> Home </a></li>
+                    <li><a href="ministries.html"> About </a></li>
+                    <li><a href="contacts.html"> Contact Us </a></li>
+                    <li><a href="blog.html"> Blog </a></li>
+                    <li><a href="checkout.html"> Give </a></li>
+                    <li><a href="adminlogin.html"> Login </a></li>
                 </ul>
-            </div>    
+            </div>
+            
 
         </div>
-    </div>
-    <div class = "title">
-        <h2>    </h2>
 
-    </div> 
+        <main class="middle">
+            <form class="contact-box-container">
+                <h2>Contact Us</h2>
+                <div class="name-fields">
+                    <label class="field">
+                        <span>First Name <small>(required)</small></span>
+                        <input type="text" id="fname" name="first-name" autocomplete="given-name" required>
+                    </label>
+                    <label class="field">
+                        <span>Last Name <small>(required)</small></span>
+                        <input type="text" id="lname" name="last-name" autocomplete="family-name" required>
+                    </label>
+                </div>
+                <label class="field">
+                    <span>Email Address <small>(required)</small></span>
+                    <input type="email" id="email" name="email" autocomplete="email" required>
+                </label>
+                <label class="field">
+                    <span>Subject <small>(required)</small></span>
+                    <input type="text" id="subject" name="subject" required>
+                </label>
+                <label class="field">
+                    <span>Message <small>(required)</small></span>
+                    <textarea name="message" id="message" required></textarea>
+                </label>
+                <button type="submit" id="submit" class="contact-box-submit">SUBMIT</button>
+            </form>
+        </main>
+
+     <section>
+            <div class="end">
+                <Footer>
+                    <p id="location"> 1450 Rose Road, <br>  Albertville Alabama 35951</p>
+                    <p id="copyright">&copy; 2025 Eglise Porte Etroite. All Rights Reserved.</p>
+                    <div class = "logofooter"> <img src="Images/logoback.png" height="50" alt="Eglise Porte Etroite"> </div>
+                    <div class="widgits">
+                        <a class="socialicon" href="https://www.facebook.com/eglise.porteetroite.33" target="_blank"> <ion-icon name="logo-facebook"></ion-icon></a>
+                       <a class="socialicon" href="https://www.youtube.com/@egliseporteetroite6555" target="_blank"> <ion-icon name="logo-youtube"></ion-icon></a>
+                       <a class="socialicon" href="" target="_blank"> <ion-icon name="logo-instagram"></ion-icon></a>
+                       
+                        
+                    </div>
+                   
+                </Footer>
+
+            </div>
+       </section>
+
+
+
+       <script>
+  const API_URL = 'https://0aelutlvm7.execute-api.us-east-1.amazonaws.com/message/contact';
+
+  const form       = document.querySelector('.contact-box-container');
+  const submitBtn  = document.getElementById('submit');
+
+  // Add feedback elements dynamically
+  const errorDiv = document.createElement('p');
+  errorDiv.style.cssText = 'color:red; display:none; margin: 0.5rem 0; font-size: 0.95rem;';
+  const successDiv = document.createElement('p');
+  successDiv.style.cssText = 'color:green; display:none; margin: 0.5rem 0; font-size: 0.95rem;';
+  form.insertBefore(errorDiv, submitBtn);
+  form.insertBefore(successDiv, submitBtn);
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    errorDiv.style.display   = 'none';
+    successDiv.style.display = 'none';
+    submitBtn.disabled       = true;
+    submitBtn.textContent    = 'Sending...';
+
+    const fname   = document.getElementById('fname').value.trim();
+    const lname   = document.getElementById('lname').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const subject = document.getElementById('subject').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!fname || !lname || !email || !subject || !message) {
+      errorDiv.textContent   = 'Please fill in all required fields.';
+      errorDiv.style.display = 'block';
+      submitBtn.disabled     = false;
+      submitBtn.textContent  = 'SUBMIT';
+      return;
+    }
+
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fname, lname, email, subject, message })
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        successDiv.textContent   = 'Message sent! We will get back to you soon.';
+        successDiv.style.display = 'block';
+        form.reset();
+      } else {
+        errorDiv.textContent   = data.error || 'Something went wrong. Please try again.';
+        errorDiv.style.display = 'block';
+      }
+    } catch (err) {
+      errorDiv.textContent   = 'Unable to send message. Please check your connection and try again.';
+      errorDiv.style.display = 'block';
+    }
+
+    submitBtn.disabled    = false;
+    submitBtn.textContent = 'SUBMIT';
+  });
+</script>
+
+
  </body>
 </html>
