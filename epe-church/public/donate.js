@@ -6,6 +6,8 @@ let selectedAmount = 50;
 const amountButtons = document.querySelectorAll(".amount-btn");
 const customAmountInput = document.getElementById("customAmount");
 
+// Selects the amount you want to donate 
+// form the amounts already given
 amountButtons.forEach((button) => {
   button.addEventListener("click", () => {
     selectedAmount = Number(button.dataset.amount);
@@ -16,6 +18,7 @@ amountButtons.forEach((button) => {
   });
 });
 
+// Custom input amount
 customAmountInput.addEventListener("input", (e) => {
   if (e.target.value) {
     selectedAmount = Number(e.target.value);
@@ -23,9 +26,10 @@ customAmountInput.addEventListener("input", (e) => {
   }
 });
 
+
 document.getElementById("donateBtn").addEventListener("click", async () => {
   const btn = document.getElementById("donateBtn");
-  const recurring = document.getElementById("recurringCheck").checked;
+  const recurring = document.getElementById("recurringCheck").checked; // checks if monthly paymets is checked
   const fund = document.getElementById("fundSelect").value;
 
   btn.disabled = true;
@@ -50,7 +54,7 @@ document.getElementById("donateBtn").addEventListener("click", async () => {
     } else {
       throw new Error("No client secret returned");
     }
-  } catch (err) {
+  } catch (err) { // error handling
     console.error(err);
     btn.disabled = false;
     btn.querySelector(".give-btn-label").textContent = "Continue to give";
