@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     const { amount, recurring, fund } = req.body;
 
     const session = await stripe.checkout.sessions.create({
-      automatic_payment_methods: { enabled: true },
+      payment_method_types: ["card"],
       ui_mode: "embedded_page",
       mode: recurring ? "subscription" : "payment",
       line_items: [
