@@ -16,6 +16,7 @@ All styles for admin login
 /* Navbar begins */
 
 *{
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: sans-serif;
@@ -140,14 +141,18 @@ All styles for admin login
 
 /* Middle Page */
 .background{
-    background-color: #3f3e3e;
+    background-color: #494848;
     height: 100vh;
+    padding-top: 80px;
 }
 
 .loginContainer{
-    
-    max-width: 1000px;
-    width: 500px;
+    max-width: 420px;
+    width: calc(100% - 30px);
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 6px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -156,19 +161,35 @@ All styles for admin login
 }
 
 .logintxt{
-    margin-bottom: 10px;
-    width: 500px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    text-align: center;
 }
 
 .login{
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    width: 50%;
+    gap: 8px;
+    width: 100%;
     
 }
+
+.login label {
+    margin-top: 8px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
 .inputs{
-  padding:5px;  
+    padding: 10px;
+    border: 1px solid #b9c0c5;
+    border-radius: 3px;
+    font-size: 1rem;
+}
+
+.inputs:focus {
+    border-color: #095999;
+    outline: 2px solid rgba(9, 89, 153, 0.2);
 }
 
 .loginbtn{
@@ -176,10 +197,17 @@ All styles for admin login
     font-size: large;
     background-color: #2c3e50;
     color: white; 
-    margin-top: 40px;
-    padding:20px;
+    margin-top: 25px;
+    padding: 13px;
+    border: 0;
+    border-radius: 3px;
     text-decoration: double;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.loginbtn:hover{
+    background-color: #095999;
 }
 
 
