@@ -21,6 +21,7 @@
          <button data-view="members" class="members" >Members</button>
          <button data-view="attandance" class="attandance" >Attandance</button>
          <button data-view="scanner" class="scanner" >Scanner</button>
+         <button onclick="logout()" class="logout" >Logout</button>
       </nav>
    
    
@@ -41,44 +42,50 @@
           
 
 
-
-         <div class="tablecontainer">
-            <table id="membersTable" class="mtable">
-                  <caption class="tabletitle">
-                     EPE&nbsp;Members
-                  </caption>
-               
-               <thead>
-                  <tr>
-                     <th scope="col"> # </th>
-                     <th scope="col"> ID </th>
-                     <th scope="col"> First&nbsp;Name </th>
-                     <th scope="col"> Last&nbsp;Name </th>
-                     <th scope="col"> Address </th>
-                     <th scope="col"> Phone&nbsp;Number</th>
-                  </tr>
-               </thead>
-               <tbody>   
+      <div class ="membersLayout">
+            <div class="tablecontainer">
+               <table id="membersTable" class="mtable">
+                     <caption class="tabletitle">
+                        EPE&nbsp;Members
+                     </caption>
                   
-                  <!-- will be filled using js -->   
+                  <thead>
+                     <tr>
+                        <th scope="col"> # </th>
+                        <th scope="col"> ID </th>
+                        <th scope="col"> First&nbsp;Name </th>
+                        <th scope="col"> Last&nbsp;Name </th>
+                        <th scope="col"> Address </th>
+                        <th scope="col"> Phone&nbsp;Number</th>
+                        <th scope="col"> Emergency&nbsp;Contact</th>
+                     </tr>
+                  </thead>
+                  <tbody>   
+                     
+                     <!-- will be filled using js -->   
+                     
                   
+                  </tbody>
+
+               </table>
+
                
-               </tbody>
 
-            </table>
+            
+            
 
-          
-           
+            </div>
 
+            <div id="memberAttendanceInfo" class="attendanceInfo"></div>
          </div>
 
-
-         <div class="btns">
+      <div class="btns">
 
             <button id = "prev"> Previous </button>
             <button id = "next"> Next </button>
-            <button onclick="DeleteMember()" id = "delete"> delete </button>
-            <button onclick="memberModal()" id = "create"> create </button>
+            <button onclick="editMember()" id = "Edit"> Edit </button>
+            <button onclick="DeleteMember()" id = "delete"> Delete </button>
+            <button onclick="createMember()" id = "create"> Create </button>
 
 
          </div>
@@ -94,6 +101,9 @@
                 <input type="text" id="modalMemberPhonenumber" placeholder="Member's PhoneNumber" ><br><br>
                 <input type="text" id="modalMemberContactCell" placeholder="Contact Cellphone" ><br><br>
                  <input type="text" id="modalMemberAddress" placeholder="Member's Address" ><br><br>
+                 <input type="text" id="modalMemberEmergencyContact" placeholder="Emergency Contact" ><br><br>
+                 <input type="file" id="modalPhotoFile" accept="image/*"><br><br>
+                 <p id="modalPhotoStatus" class="photoStatus"></p>
                <button type="submit">Save</button>
                <button type="button" onclick="closeMemberModal()">Cancel</button>
             </form>
@@ -112,11 +122,15 @@
 
 
       <section id="attandance" class ="view" hidden>
-
+            <div class="UserSearch">
+               <label for="attDate"> Search: </label>
+               <input class="inputs" id="attDate" type="date"> 
+               <button id="exportAttendance"> Export CSV </button>
+            </div> 
          <div>
           <table id="attTable">
                   <caption class="tabletitle">
-                     EPE&nbsp;Attandance
+                     EPE&nbsp;Attendance
                   </caption>
                
                <thead>
@@ -126,7 +140,8 @@
                      <th scope="col"> ID </th>
                      <th scope="col"> First&nbsp;Name </th>
                      <th scope="col"> Last&nbsp;Name </th>
-                     <th scope="col"> Attandance </th>
+                     <th scope="col"> Attendance </th>
+                     
                     
                   </tr>
                </thead>
@@ -137,11 +152,12 @@
                
                </tbody>
             </table>
+               <div class="btns"> 
+                  <button id = "aprev"> Previous </button>
+                  <button id = "anext"> Next </button>
+                  <button onclick="deleteSelectedRow()" id = "delete"> delete </button>
 
-              <button id = "aprev"> Previous </button>
-              <button id = "anext"> Next </button>
-               <button onclick="deleteSelectedRow()" id = "delete"> delete </button>
-
+               </div>
          </div>
 
             
@@ -156,16 +172,15 @@
          <div class="scanbkg">    
             
 
-            <div class="scan">  
-               
+           <div class="scan">  
                <label for="bqinput"> BARCODE: </label>
-               <input class="inputs" id="bqinput"  placeholder="San Barcode...." type="text" autofocus>
+               <input class="inputs" id="bqinput" placeholder="San Barcode...." type="text" autofocus>
 
-
-
+               <div id="scanResult" class="scanResult" style="display:none;">
+                  <img id="scanPhoto" src="" alt="">
+                  <p id="scanName"></p>
+               </div>
             </div>
-           
-         
          
          
          
