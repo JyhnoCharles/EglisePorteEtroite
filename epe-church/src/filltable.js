@@ -83,7 +83,7 @@ async function loadMembers() {
 
   if (error) {
     document.querySelector('#membersTable tbody')
-      .innerHTML = `<tr><td colspan="6">Failed to load members</td></tr>`;
+      .innerHTML = `<tr><td colspan="7">Failed to load members</td></tr>`;
     console.error(error);
     return;
   }
@@ -97,7 +97,7 @@ async function loadMembers() {
   const tbody = document.querySelector('#membersTable tbody');
 
   if (!members.length) {
-    tbody.innerHTML = `<tr><td colspan="6">No members match your search.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7">No members match your search.</td></tr>`;
     return;
   }
 
@@ -108,14 +108,14 @@ async function loadMembers() {
 
     const [first, ...rest] = (m.Name ?? '').split(' ');
     const last = rest.join(' ');
-    return `<tr data-id="${m.ID}" data-name="${m.Name ?? ''}" data-phone="${m.Phone_Number ?? ''}" data-contact="${m.Contact_Cellphone ?? ''}" data-address="${m.Address ??  ''}" data-emergency="${m.Emergency_Contact ?? ''}" onclick="selectMemberRow(this)">
+    return `<tr data-id="${m.ID}" data-name="${m.Name ?? ''}" data-phone="${m.Phone_Number ?? ''}" data-contact="${m.Contact_Cellphone ?? ''}" data-address="${m.Address ?? ''}" onclick="selectMemberRow(this)">
       <td>${rowNumber}</td>
       <td>${m.ID}</td>
       <td>${first}</td>
       <td>${last}</td>
       <td>${m.Address}</td>
       <td>${m.Phone_Number}</td>
-      <td>${m.Emergency_Contact}</td>
+      <td>${m.Contact_Cellphone ?? ''}</td>
     </tr>`;
   }).join('');
 }
@@ -152,29 +152,38 @@ window.selectMemberRow = async function (row) {
   row.classList.add('selected-row');
   selectedMemberRow = row;
 
-  const { id, name, phone, contact, address, emergency } = row.dataset;
+  const { id, name, phone, contact, address } = row.dataset;
 
   infoEl.innerHTML = `
+    <img id="memberInfoPhoto" class="memberInfoPhoto" style="display:none;" alt="${name || 'Member'} photo">
     <h4>${name || 'Unnamed'}</h4>
     <p><strong>ID:</strong> ${id}</p>
     <p><strong>Phone:</strong> ${phone || '—'}</p>
     <p><strong>Contact Cell:</strong> ${contact || '—'}</p>
     <p><strong>Address:</strong> ${address || '—'}</p>
-    <p><strong>Emergency Contact:</strong> ${emergency || '—'}</p>
     <p id="lastAttendanceLine"><strong>Last attendance:</strong> Checking…</p>
   `;
 
-  const { data: lastAttendance, error } = await supabase
-    .from('attendance')
-    .select('date, status')
-    .eq('ID', id)
-    .order('date', { ascending: false })
-    .limit(1)
-    .maybeSingle();
+  const [{ data: photoRow }, { data: lastAttendance, error }] = await Promise.all([
+    supabase.from('photos').select('photo_url').eq('member_id', id).maybeSingle(),
+    supabase
+      .from('attendance')
+      .select('date, status')
+      .eq('ID', id)
+      .order('date', { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+  ]);
 
   // If a different row got clicked while this was still loading,
   // don't overwrite whatever's showing now.
   if (selectedMemberRow !== row) return;
+
+  const photoEl = document.getElementById('memberInfoPhoto');
+  if (photoEl && photoRow?.photo_url) {
+    photoEl.src = photoRow.photo_url;
+    photoEl.style.display = 'block';
+  }
 
   const lineEl = document.getElementById('lastAttendanceLine');
   if (!lineEl) return;
@@ -233,7 +242,6 @@ window.editMember = async function () {
   document.getElementById('modalMemberPhonenumber').value = selectedMemberRow.dataset.phone || '';
   document.getElementById('modalMemberContactCell').value = selectedMemberRow.dataset.contact || '';
   document.getElementById('modalMemberAddress').value = selectedMemberRow.dataset.address || '';
-  document.getElementById('modalMemberEmergencyContact').value = selectedMemberRow.dataset.emergency || '';
   document.getElementById('modalPhotoFile').value = '';
 
   const statusEl = document.getElementById('modalPhotoStatus');
