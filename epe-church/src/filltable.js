@@ -238,6 +238,10 @@ window.editMember = async function () {
 
   window.editingMemberId = selectedMemberRow.dataset.id;
 
+  const idInput = document.getElementById('modalMemberID');
+  idInput.value = selectedMemberRow.dataset.id;
+  idInput.disabled = false;
+
   document.getElementById('modalName').value = selectedMemberRow.dataset.name || '';
   document.getElementById('modalMemberPhonenumber').value = selectedMemberRow.dataset.phone || '';
   document.getElementById('modalMemberContactCell').value = selectedMemberRow.dataset.contact || '';
@@ -269,6 +273,12 @@ window.createMember = function () {
   window.editingMemberId = null;
   document.getElementById('memberForm').reset();
   document.getElementById('modalPhotoStatus').textContent = '';
+
+  const idInput = document.getElementById('modalMemberID');
+  idInput.value = '';
+  idInput.placeholder = 'Auto-assigned';
+  idInput.disabled = true;
+
   document.querySelector('#memberModal h3').textContent = 'New Member';
   document.querySelector('#memberForm button[type="submit"]').textContent = 'Save';
   window.memberModal();

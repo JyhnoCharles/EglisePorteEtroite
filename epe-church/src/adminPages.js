@@ -49,7 +49,7 @@ barcodeInput.addEventListener('keydown', async (e) => {
       .single();
 
     if (error || !member) {
-      console.log('No member found with that ID.');
+      alert('No member found with that ID.');
       return;
     }
 
@@ -343,6 +343,7 @@ window.closeMemberModal = function () {
   document.getElementById('memberForm').reset();
   document.getElementById('modalPhotoFile').value = '';
   document.getElementById('modalPhotoStatus').textContent = '';
+  document.getElementById('modalMemberID').disabled = false;
 
   // Reset back to "create" mode so a stray Cancel click never leaves
   // the form stuck thinking it's still editing someone.
@@ -397,9 +398,37 @@ document.getElementById('memberForm').addEventListener('submit', async (e) => {
 
   // --- Editing an existing member ---
   if (window.editingMemberId) {
+    const newId = document.getElementById('modalMemberID').value.trim();
+
+    if (!newId) {
+      resultDiv.textContent = 'Member ID cannot be empty.';
+      return;
+    }
+
+    // If the ID actually changed, make sure nobody else already has it
+    // before touching anything.
+    if (newId !== window.editingMemberId) {
+      const { data: existing, error: checkErr } = await supabase
+        .from('members')
+        .select('ID')
+        .eq('ID', newId)
+        .maybeSingle();
+
+      if (checkErr) {
+        resultDiv.textContent = 'Error checking ID availability: ' + checkErr.message;
+        return;
+      }
+
+      if (existing) {
+        resultDiv.textContent = `ID "${newId}" is already in use by another member.`;
+        return;
+      }
+    }
+
     const { error } = await supabase
       .from('members')
       .update({
+        ID: newId,
         Name: name,
         Phone_Number: Phone,
         Contact_Cellphone: contactcell,
@@ -413,7 +442,13 @@ document.getElementById('memberForm').addEventListener('submit', async (e) => {
       return;
     }
 
-    resultDiv.textContent = `Member #${window.editingMemberId} updated!`;
+    resultDiv.textContent = newId !== window.editingMemberId
+      ? `Member updated — ID changed to #${newId}.`
+      : `Member #${window.editingMemberId} updated!`;
+
+    // photos.member_id and attendance.ID follow the change automatically
+    // (ON UPDATE CASCADE), so a new photo just needs to go under the new ID.
+    window.editingMemberId = newId;
 
     if (photoFile) {
       try {
@@ -430,7 +465,7 @@ document.getElementById('memberForm').addEventListener('submit', async (e) => {
     return;
   }
 
-  // --- Creating a new member (original logic, unchanged) ---
+  // --- Creating a new member ---
   const { data: lastMember, error: fetchError } = await supabase
     .from('members')
     .select('ID')
@@ -442,7 +477,14 @@ document.getElementById('memberForm').addEventListener('submit', async (e) => {
 
   const { data, error } = await supabase
     .from('members')
-    .insert([{ID: nextMemberId, Name: name , Phone_Number: Phone, Contact_Cellphone: contactcell ,Address: address  }]);
+    .insert([{
+      ID: nextMemberId,
+      Name: name,
+      Phone_Number: Phone,
+      Contact_Cellphone: contactcell,
+      Emergency_Contact: emergencyContact,
+      Address: address,
+    }]);
 
   if (error) {
     resultDiv.textContent = error.message;
