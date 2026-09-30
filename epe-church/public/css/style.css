@@ -34,8 +34,9 @@
 /* Logo alignment */
 .logo img {
     z-index: 999;
-    height: 50px;
+    height: 40px;
     padding-left:  5px;
+    padding-top: 5px;
     cursor: pointer;
     text-decoration: none;
 }
@@ -439,7 +440,8 @@ footer {
       font-size: 5px;
     }
     .logo img{
-        height: 40px;
+        padding-top: 5px;
+        height: 30px;
     }
     .video {
         
