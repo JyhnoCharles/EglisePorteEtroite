@@ -34,6 +34,39 @@ function swapView(id){
 
 const barcodeInput = document.getElementById('bqinput');
 
+// Scanner mode: 'attendance' (default) or 'communion'.
+// Deliberately kept in memory only (not saved anywhere), so a page
+// refresh always puts the scanner back on attendance.
+let scanMode = 'attendance';
+
+const modeToggle = document.getElementById('modeToggle');
+const modeBanner = document.getElementById('modeBanner');
+const scanBkg = document.querySelector('.scanbkg');
+
+function renderScanMode() {
+  const isCommunion = scanMode === 'communion';
+
+  scanBkg?.classList.toggle('communion-mode', isCommunion);
+  if (modeBanner) modeBanner.textContent = isCommunion ? 'COMMUNION MODE' : 'ATTENDANCE MODE';
+  if (modeToggle) modeToggle.textContent = isCommunion ? 'Switch to Attendance' : 'Switch to Communion';
+
+  // Hide the last person's popup so a confirmation from the old mode
+  // can't be mistaken for a scan in the new one.
+  const lastScan = document.getElementById('scanResult');
+  if (lastScan) lastScan.style.display = 'none';
+
+  // Clicking the toggle moves focus onto the button; hand it straight
+  // back to the barcode input so the next scan lands in the right place.
+  barcodeInput.focus();
+}
+
+modeToggle?.addEventListener('click', () => {
+  scanMode = scanMode === 'attendance' ? 'communion' : 'attendance';
+  renderScanMode();
+});
+
+renderScanMode();
+
 barcodeInput.addEventListener('keydown', async (e) => {
   if (e.key === 'Enter') {
     const scannedID = barcodeInput.value.trim();
@@ -49,23 +82,30 @@ barcodeInput.addEventListener('keydown', async (e) => {
       .single();
 
     if (error || !member) {
-      alert('No member found with that ID.');
+      console.log('No member found with that ID.');
       return;
     }
 
     
 
-    // Mark them present for today
-    const today = new Date().toLocaleDateString('en-CA')
+    // Record the scan in whichever table the current mode points at.
+    // The mode is read once, here, so it can't change mid-scan.
+    const today = new Date().toLocaleDateString('en-CA');
+    const mode = scanMode; // 'attendance' or 'communion' — also the table name
+
+    const record = mode === 'communion'
+      ? { ID: scannedID, Name: member.Name, date: today }
+      : { ID: scannedID, Name: member.Name, date: today, status: 'present' };
 
     const { error: upsertError } = await supabase
-      .from('attendance')
-      .upsert([{ ID: scannedID, Name: member.Name , date: today, status: 'present' }], {onConflict:['ID', 'date']  })
+      .from(mode)
+      .upsert([record], { onConflict: 'ID,date' })
       .select();
 
     if (upsertError) {
-      alert('Error marking attendance.', error);
-      console.error('Error marking attendance:', error);
+      alert(`Error recording ${mode}: ` + upsertError.message);
+      console.error(`Error recording ${mode}:`, upsertError);
+      barcodeInput.focus();
       return;
     }
 
@@ -84,6 +124,17 @@ barcodeInput.addEventListener('keydown', async (e) => {
 
     scanName.textContent = member.Name;
 
+    // Say which kind of scan just happened.
+    const scanMessage = document.getElementById('scanMessage');
+    const label = mode === 'communion' ? 'Communion recorded' : 'Attendance recorded';
+    if (scanMessage) {
+      scanMessage.textContent = label;
+      scanMessage.className = 'scanMessage ' + mode;
+    } else {
+      // Fallback if the #scanMessage element isn't in the HTML yet
+      scanName.textContent = `${member.Name} — ${label}`;
+    }
+
     if (photoRow?.photo_url) {
       scanPhoto.src = photoRow.photo_url;
       scanPhoto.style.display = 'block';
@@ -93,6 +144,7 @@ barcodeInput.addEventListener('keydown', async (e) => {
     }
 
     scanResult.style.display = 'flex';
+    barcodeInput.focus();
   }
 });
 
@@ -101,6 +153,13 @@ barcodeInput.addEventListener('keydown', async (e) => {
 const prevBtn = document.getElementById('aprev');
 const nextBtn = document.getElementById('anext');
 const dateInput = document.getElementById('attDate');
+const typeSelect = document.getElementById('attType');
+
+// Which list the attendance page is showing: 'attendance' or 'communion'.
+// Falls back to attendance if the selector isn't in the HTML yet.
+function currentType() {
+  return typeSelect?.value === 'communion' ? 'communion' : 'attendance';
+}
 
 const pageSize = 20;
 let currentPage = 1;
@@ -109,6 +168,11 @@ let currentPage = 1;
 dateInput.value = new Date().toLocaleDateString('en-CA');
 
 dateInput.addEventListener('change', () => {
+  currentPage = 1;
+  loadMembers();
+});
+
+typeSelect?.addEventListener('change', () => {
   currentPage = 1;
   loadMembers();
 });
@@ -123,8 +187,50 @@ function csvEscape(value) {
   return str;
 }
 
+function downloadCSV(filename, lines) {
+  const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 async function exportAttendanceCSV() {
   const selectedDate = dateInput.value;
+
+  // Communion export: every member is listed, with a Yes/No column showing
+  // who took communion that day and who didn't.
+  if (currentType() === 'communion') {
+    const [membersResult, communionResult] = await Promise.all([
+      supabase.from('members').select('ID, Name').order('ID', { ascending: true }),
+      supabase.from('communion').select('ID').eq('date', selectedDate),
+    ]);
+
+    if (membersResult.error || communionResult.error) {
+      alert('Export failed: ' + (membersResult.error?.message || communionResult.error?.message));
+      console.error(membersResult.error, communionResult.error);
+      return;
+    }
+
+    const tookCommunion = new Set(communionResult.data.map((r) => r.ID));
+
+    const communionLines = ['ID,Name,Communion,Date'];
+    membersResult.data.forEach((m) => {
+      communionLines.push([
+        m.ID,
+        csvEscape(m.Name),
+        tookCommunion.has(m.ID) ? 'Yes' : 'No',
+        selectedDate,
+      ].join(','));
+    });
+
+    downloadCSV(`communion_${selectedDate}.csv`, communionLines);
+    return;
+  }
 
   const [membersResult, attendanceResult] = await Promise.all([
     supabase.from('members').select('ID, Name'),
@@ -153,15 +259,7 @@ async function exportAttendanceCSV() {
     lines.push([r.id, csvEscape(r.name), r.status, selectedDate].join(','));
   });
 
-  const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `attendance_${selectedDate}.csv`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  downloadCSV(`attendance_${selectedDate}.csv`, lines);
 }
 
 nextBtn.addEventListener('click', () => {
@@ -181,10 +279,11 @@ async function loadMembers() {
   const from  = (currentPage - 1) * pageSize;
   const to = (pageSize * currentPage) - 1;
   const selectedDate = dateInput.value;
+  const type = currentType(); // 'attendance' or 'communion' — also the table name
 
   // ③ Fetch rows — scoped to whichever date is picked
   const { data: attend, error } = await supabase
-    .from('attendance')                             // exact, lower-case table name
+    .from(type)
     .select('*')
     .eq('date', selectedDate)
     .range(from,to)
@@ -203,8 +302,14 @@ if (error) {
   // ④ Build and inject rows
   const tbody = document.querySelector('#attTable tbody');
 
+  // Caption and last column header follow whichever list is showing
+  document.querySelector('#attTable caption').textContent =
+    type === 'communion' ? 'EPE Communion' : 'EPE Attendance';
+  document.querySelector('#attTable thead th:last-child').textContent =
+    type === 'communion' ? 'Communion' : 'Attendance';
+
   if (!attend.length) {
-    tbody.innerHTML = `<tr><td colspan="5">No attendance recorded for this date.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5">No ${type} recorded for this date.</td></tr>`;
     return;
   }
 
@@ -217,18 +322,22 @@ if (error) {
     const last = rest.join(' ');
     const status = m.status ?? 'present';
 
+    // Communion rows have no present/absent/excused — being listed means
+    // the person took communion that day.
+    const lastCell = type === 'communion'
+      ? 'Took communion'
+      : `<select onclick="event.stopPropagation()" onchange="updateStatus(this, '${m.ID}', '${m.date}')">
+          <option value="present" ${status === 'present' ? 'selected' : ''}>Present</option>
+          <option value="absent" ${status === 'absent' ? 'selected' : ''}>Absent</option>
+          <option value="excused" ${status === 'excused' ? 'selected' : ''}>Excused</option>
+        </select>`;
+
     return `<tr data-id="${m.ID}" data-date="${m.date}" onclick="selectRow(this)">
       <td>${rowNumber}</td>
       <td>${m.ID}</td>
       <td>${first}</td>
       <td>${last}</td>
-      <td>
-        <select onclick="event.stopPropagation()" onchange="updateStatus(this, '${m.ID}', '${m.date}')">
-          <option value="present" ${status === 'present' ? 'selected' : ''}>Present</option>
-          <option value="absent" ${status === 'absent' ? 'selected' : ''}>Absent</option>
-          <option value="excused" ${status === 'excused' ? 'selected' : ''}>Excused</option>
-        </select>
-      </td>
+      <td>${lastCell}</td>
     </tr>`;
   }).join('');
 }
@@ -294,7 +403,7 @@ window.deleteSelectedRow = async function(){
 
   try {
   const { data, error } = await supabase 
-  .from('attendance')
+  .from(currentType())
   .delete()
   .eq('ID',rowID)
   .eq('date',date )

@@ -116,7 +116,13 @@
 
       <section id="attandance" class ="view" hidden>
             <div class="UserSearch">
-               <label for="attDate"> Search: </label>
+            <label for="attType"> View: </label>
+               <select class="inputs" id="attType">
+                  <option value="attendance">Attendance</option>
+                  <option value="communion">Communion</option>
+               </select>
+
+               <label for="attDate"> Date: </label>
                <input class="inputs" id="attDate" type="date"> 
                <button id="exportAttendance"> Export CSV </button>
             </div> 
@@ -165,13 +171,17 @@
          <div class="scanbkg">    
             
 
-           <div class="scan">  
+            <div class="scan">
+               <div id="modeBanner" class="modeBanner">ATTENDANCE MODE</div>
+               <button id="modeToggle" class="modeToggle" type="button">Switch to Communion</button>
+
                <label for="bqinput"> BARCODE: </label>
                <input class="inputs" id="bqinput" placeholder="San Barcode...." type="text" autofocus>
 
                <div id="scanResult" class="scanResult" style="display:none;">
                   <img id="scanPhoto" src="" alt="">
                   <p id="scanName"></p>
+                  <p id="scanMessage" class="scanMessage"></p>
                </div>
             </div>
          
